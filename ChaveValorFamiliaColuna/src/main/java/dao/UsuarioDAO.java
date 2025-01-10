@@ -17,29 +17,29 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     public void adicionarUsuario(UsuarioDTO dto) {
-        String chave = String.valueOf(dto.getId());
-        String valor = mapperUsuario.toJson(dto); 
+        String chave = "usuario:" + dto.getId();
+        String valor = mapperUsuario.toJson(dto);
+        jedis.set(chave, valor);
+    }
+
+    public void atualizarUsuario(UsuarioDTO dto) {
+        String chave = "usuario:" + dto.getId();
+        String valor = mapperUsuario.toJson(dto);
         jedis.set(chave, valor);
     }
 
     public Usuario obterUsuario(UsuarioDTO dto) {
-        String chave = String.valueOf(dto.getId());
-        String usuarioJson = jedis.get(chave);  
-        if (usuarioJson != null) {
-            UsuarioDTO usuarioDTO = mapperUsuario.fromJson(usuarioJson);
-            return mapperUsuario.toEntity(usuarioDTO);
+        String chave = "usuario:" + dto.getId();
+        String avaliacaoJson = jedis.get(chave);
+        if (avaliacaoJson != null) {
+            UsuarioDTO avaliacaoDTO = mapperUsuario.fromJson(avaliacaoJson);
+            return mapperUsuario.toEntity(avaliacaoDTO);
         }
         return null;
     }
 
     public void excluirUsuario(UsuarioDTO dto) {
-        String chave = String.valueOf(dto.getId());
-        jedis.del(chave);  
-    }
-
-    public void atualizarUsuario(UsuarioDTO dto) {
-        String chave = String.valueOf(dto.getId());
-        String valor = mapperUsuario.toJson(dto); 
-        jedis.set(chave, valor);
+        String chave = "usuario:" + dto.getId();
+        jedis.del(chave);
     }
 }
