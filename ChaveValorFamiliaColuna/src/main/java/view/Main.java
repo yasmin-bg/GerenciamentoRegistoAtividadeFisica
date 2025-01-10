@@ -2,10 +2,9 @@ package view;
 
 import dto.ExercicioDTO;
 import model.Exercicio;
-import dao.ExercicioDAO;
+import dao.ConexaoRedis;
 import dto.UsuarioDTO;
 import model.Usuario;
-import dao.UsuarioDAO;
 import controller.ExercicioController;
 import controller.UsuarioController;
 import dto.AvaliacaoFisicaDTO;
@@ -15,13 +14,16 @@ import controller.AvaliacaoFisicaController;
 public class Main {
 
     public static void main(String[] args) {
+    	
+        ConexaoRedis.abrirConexao(); 
+
         ExercicioController exercicioController = new ExercicioController();
         UsuarioController usuarioController = new UsuarioController();
         AvaliacaoFisicaController avaliacaoFisicaController = new AvaliacaoFisicaController();
 
         // Criando e adicionando um usuário
         UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.setId(1L);
+        usuarioDTO.setId(2L);
         usuarioDTO.setNome("João");
         usuarioDTO.setEmail("joao@exemplo.com");
         usuarioDTO.setSenha("senha123");
@@ -74,8 +76,8 @@ public class Main {
 
         // Criando e adicionando uma avaliação física
         AvaliacaoFisicaDTO avaliacaoFisicaDTO = new AvaliacaoFisicaDTO();
-        avaliacaoFisicaDTO.setId(1L);
-        avaliacaoFisicaDTO.setIdUsuario(1L);
+        avaliacaoFisicaDTO.setId(3L);
+        avaliacaoFisicaDTO.setIdUsuario(2L);
         avaliacaoFisicaDTO.setPeso(70.5);
         avaliacaoFisicaDTO.setAltura(1.75);
         avaliacaoFisicaDTO.setImc(22.9);
@@ -106,5 +108,7 @@ public class Main {
         } else {
             System.out.println("Avaliação física não encontrada.");
         }
+
+        ConexaoRedis.fecharConexao(); 
     }
 }
