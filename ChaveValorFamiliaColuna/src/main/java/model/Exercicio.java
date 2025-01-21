@@ -3,12 +3,14 @@ package model;
 public class Exercicio {
 	
     private long id;
-    private String tipoExercicio;
+    private long idUsuario;
+	private String tipoExercicio;
     private int duracao; 
     private int caloriasQueimadas;
 
-    public Exercicio(long id, String tipoExercicio, int duracao, int caloriasQueimadas) {
+    public Exercicio(long id, long idUsuario, String tipoExercicio, int duracao, int caloriasQueimadas) {
         this.id = id;
+        this.idUsuario = idUsuario;
         this.tipoExercicio = tipoExercicio;
         this.duracao = duracao;
         this.caloriasQueimadas = caloriasQueimadas;
@@ -26,6 +28,14 @@ public class Exercicio {
         this.id = id;
     }
 
+    public Long getIdUsuario() {
+    	return idUsuario;
+    }
+    
+    public void setIdUsuario(Long idUsuario) {
+    	this.idUsuario = idUsuario;
+    }
+    
     public String getTipoExercicio() {
         return tipoExercicio;
     }
