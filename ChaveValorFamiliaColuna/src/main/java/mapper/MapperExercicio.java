@@ -14,6 +14,7 @@ public class MapperExercicio {
     public ExercicioDTO toDTO(Exercicio exercicio) {
         ExercicioDTO dto = new ExercicioDTO();
         dto.setId(exercicio.getId());
+        dto.setIdUsuario(exercicio.getIdUsuario());
         dto.setTipoExercicio(exercicio.getTipoExercicio());
         dto.setDuracao(exercicio.getDuracao());
         dto.setCaloriasQueimadas(exercicio.getCaloriasQueimadas());
@@ -23,6 +24,7 @@ public class MapperExercicio {
     public Exercicio toEntity(ExercicioDTO exercicioDTO) {
         Exercicio entity = new Exercicio();
         entity.setId(exercicioDTO.getId());
+        entity.setIdUsuario(exercicioDTO.getIdUsuario());
         entity.setTipoExercicio(exercicioDTO.getTipoExercicio());
         entity.setDuracao(exercicioDTO.getDuracao());
         entity.setCaloriasQueimadas(exercicioDTO.getCaloriasQueimadas());

@@ -3,12 +3,14 @@ package dto;
 public class ExercicioDTO {
 	
     private long id;
-    private String tipoExercicio;
+    private long idUsuario;
+	private String tipoExercicio;
     private int duracao;
     private int caloriasQueimadas;
 
-    public ExercicioDTO(long id, String tipoExercicio, int duracao, int caloriasQueimadas) {
+    public ExercicioDTO(long id, long idUsuario, String tipoExercicio, int duracao, int caloriasQueimadas) {
         this.id = id;
+        this.idUsuario = idUsuario;
         this.tipoExercicio = tipoExercicio;
         this.duracao = duracao;
         this.caloriasQueimadas = caloriasQueimadas;
@@ -26,6 +28,14 @@ public class ExercicioDTO {
         this.id = id;
     }
 
+    public Long getIdUsuario() {
+    	return idUsuario;
+    }
+    
+    public void setIdUsuario(Long idUsuario) {
+    	this.idUsuario = idUsuario;
+    }
+    
     public String getTipoExercicio() {
         return tipoExercicio;
     }
