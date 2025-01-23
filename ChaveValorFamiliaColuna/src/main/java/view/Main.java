@@ -10,6 +10,7 @@ import controller.AvaliacaoFisicaController;
 import controller.ExercicioController;
 import controller.UsuarioController;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -52,9 +53,14 @@ public class Main {
             System.out.println("12. Atualizar Avaliacao Física");
             System.out.println("13. Obter Avaliacao Física");
             System.out.println("14. Excluir Avaliacao Física");
+            System.out.println("15. Listar o IMC");
 
             System.out.println("--------------------------------------------");
 
+            System.out.println("16. Sair");
+            
+            System.out.println("--------------------------------------------");
+            
             escolha = scanner.nextLine().toLowerCase();
 
             switch (escolha) {
@@ -302,6 +308,36 @@ public class Main {
                     break;
 
                 case "14":
+                    System.out.println("Digite o id da Avaliação Física a ser excluída:");
+                    Long idExcluirAvaliacao = scanner.nextLong();
+                    scanner.nextLine();
+                    AvaliacaoFisicaDTO avaliacaoDTODelete = new AvaliacaoFisicaDTO();
+                    avaliacaoDTODelete.setId(idExcluirAvaliacao);
+                    avaliacaoFisicaController.excluirAvaliacao(avaliacaoDTODelete);
+                    System.out.println("Avaliação Física excluída com sucesso.");
+                    break;
+
+                case "15": // Listar Histórico de IMC
+                    System.out.println("Digite o ID do usuário para consultar o histórico de IMC:");
+                    Long idUsuarioHistorico = scanner.nextLong();
+                    scanner.nextLine();
+                    
+                    AvaliacaoFisicaDTO dtoHistorico = new AvaliacaoFisicaDTO();
+                    dtoHistorico.setId(idUsuarioHistorico);
+
+                    List<Double> historicoIMC = avaliacaoFisicaController.listarHistoricoIMC(dtoHistorico);
+
+                    if (historicoIMC.isEmpty()) {
+                        System.out.println("Nenhum histórico de avaliação encontrado para o usuário.");
+                    } else {
+                        System.out.println("Histórico de IMC do usuário:");
+                        for (Double imcHistorico : historicoIMC) {
+                            System.out.println("IMC: " + imcHistorico);
+                        }
+                    }
+                    break;
+
+                case "16":
                     System.out.println("Saindo...");
                     break;
 

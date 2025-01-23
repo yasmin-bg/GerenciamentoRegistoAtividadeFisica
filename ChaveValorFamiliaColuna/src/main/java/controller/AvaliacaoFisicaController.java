@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import dao.AvaliacaoFisicaDAO;
 import dto.AvaliacaoFisicaDTO;
 import mapper.MapperAvaliacaoFisica;
@@ -27,5 +29,9 @@ public class AvaliacaoFisicaController {
 
     public void excluirAvaliacao(AvaliacaoFisicaDTO dto) {
     	dao.excluirAvaliacao(dto);
+    }
+    
+    public List<Double> listarHistoricoIMC(AvaliacaoFisicaDTO dto) {
+    	return dao.listarHistoricoIMC(dto);
     }
 }

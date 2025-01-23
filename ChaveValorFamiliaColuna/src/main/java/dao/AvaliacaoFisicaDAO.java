@@ -4,6 +4,8 @@ import dto.AvaliacaoFisicaDTO;
 import mapper.MapperAvaliacaoFisica;
 import model.AvaliacaoFisica;
 import redis.clients.jedis.Jedis;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AvaliacaoFisicaDAO implements IAvaliacaoFisicaDAO {
 
@@ -11,7 +13,7 @@ public class AvaliacaoFisicaDAO implements IAvaliacaoFisicaDAO {
     private MapperAvaliacaoFisica mapperAvaliacaoFisica;
 
     public AvaliacaoFisicaDAO() {
-    	this.jedis = new Jedis("127.0.0.1", 6379);
+        this.jedis = new Jedis("127.0.0.1", 6379);
         jedis.auth("senha");
         this.mapperAvaliacaoFisica = new MapperAvaliacaoFisica();
     }
@@ -41,5 +43,21 @@ public class AvaliacaoFisicaDAO implements IAvaliacaoFisicaDAO {
     public void excluirAvaliacao(AvaliacaoFisicaDTO dto) {
         String chave = "avaliacao:" + dto.getId();
         jedis.del(chave);
+    }
+
+    public List<Double> listarHistoricoIMC(AvaliacaoFisicaDTO dto) {
+        List<Double> historicoIMC = new ArrayList<>();
+        
+        
+        for (String chave : jedis.keys("avaliacao:*")) {
+            if (chave.contains("avaliacao:" + dto.getId())) {
+                String avaliacaoJson = jedis.get(chave);
+                if (avaliacaoJson != null) {
+                    AvaliacaoFisicaDTO avaliacaoDTO = mapperAvaliacaoFisica.fromJson(avaliacaoJson);
+                    historicoIMC.add(avaliacaoDTO.getImc()); 
+                }
+            }
+        }
+        return historicoIMC;
     }
 }
