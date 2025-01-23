@@ -1,18 +1,16 @@
 package controller;
 
+import java.util.List;
 import dao.UsuarioDAO;
 import dto.UsuarioDTO;
-import mapper.MapperUsuario;
 import model.Usuario;
 
 public class UsuarioController {
 
     private UsuarioDAO dao;
-    private MapperUsuario mapperUsuario;
 
     public UsuarioController() {
         this.dao = new UsuarioDAO();
-        this.mapperUsuario = new MapperUsuario();
     }
 
     public void adicionarUsuario(UsuarioDTO dto) {
@@ -29,5 +27,9 @@ public class UsuarioController {
 
     public void atualizarUsuario(UsuarioDTO dto) {
         dao.atualizarUsuario(dto);
+    }
+    
+    public List<UsuarioDTO> listarTodosUsuarios() {
+    	return dao.listarTodosUsuarios();
     }
 }

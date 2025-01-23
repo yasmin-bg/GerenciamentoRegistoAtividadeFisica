@@ -16,7 +16,11 @@ public class ExercicioDTO {
         this.caloriasQueimadas = caloriasQueimadas;
     }
     
-    public ExercicioDTO() {
+    public ExercicioDTO(long id) {
+		this.id = id;
+	}
+    
+	public ExercicioDTO() {
     	
     }
 

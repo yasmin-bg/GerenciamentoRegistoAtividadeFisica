@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dto.ExercicioDTO;
 import mapper.MapperExercicio;
 import model.Exercicio;
@@ -41,5 +44,17 @@ public class ExercicioDAO implements IExercicioDAO {
     public void excluirExercicio(ExercicioDTO dto) {
         String chave = "exercicio:" + dto.getId();
         jedis.del(chave);
+    }
+    
+    public List<ExercicioDTO> listarTodosExerciciosComUsuarioRelacionado() {
+        List<ExercicioDTO> exercicios = new ArrayList<>();
+        for (String chave : jedis.keys("exercicio:*")) {
+            String exercicioJson = jedis.get(chave);
+            if (exercicioJson != null) {
+                ExercicioDTO exercicioDTO = mapperExercicio.fromJson(exercicioJson);
+                exercicios.add(exercicioDTO);
+            }
+        }
+        return exercicios;
     }
 }

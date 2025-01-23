@@ -8,7 +8,23 @@ public class AvaliacaoFisicaDTO {
     private double altura;
     private double imc;
 
-    public Long getId() {
+    public AvaliacaoFisicaDTO(Long id, Long idUsuario, double peso, double altura, double imc) {
+		this.id = id;
+		this.idUsuario = idUsuario;
+		this.peso = peso;
+		this.altura = altura;
+		this.imc = imc;
+	}
+  
+    public AvaliacaoFisicaDTO(Long id) {
+		this.id = id;
+	}
+
+	public AvaliacaoFisicaDTO() {
+    	
+    }
+
+	public Long getId() {
         return id;
     }
 
