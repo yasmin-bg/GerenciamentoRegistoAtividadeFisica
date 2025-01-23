@@ -5,8 +5,23 @@ public class UsuarioDTO {
     private String nome;
     private String email;
     private String senha;
+    
+    public UsuarioDTO(Long id, String nome, String email, String senha) {
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+	}
+    
+    public UsuarioDTO(Long id) {
+		this.id = id;
+	}
 
-    public Long getId() {
+	public UsuarioDTO() {
+    	
+    }
+
+	public Long getId() {
         return id;
     }
 

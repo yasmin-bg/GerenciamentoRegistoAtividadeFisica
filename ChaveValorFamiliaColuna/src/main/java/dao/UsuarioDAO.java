@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dto.UsuarioDTO;
 import mapper.MapperUsuario;
 import model.Usuario;
@@ -41,5 +44,17 @@ public class UsuarioDAO implements IUsuarioDAO {
     public void excluirUsuario(UsuarioDTO dto) {
         String chave = "usuario:" + dto.getId();
         jedis.del(chave);
+    }
+    
+    public List<UsuarioDTO> listarTodosUsuarios() {
+        List<UsuarioDTO> usuarios = new ArrayList<>();
+        for (String chave : jedis.keys("usuario:*")) {
+            String usuarioJson = jedis.get(chave);
+            if (usuarioJson != null) {
+                UsuarioDTO usuarioDTO = mapperUsuario.fromJson(usuarioJson);
+                usuarios.add(usuarioDTO);
+            }
+        }
+        return usuarios;
     }
 }

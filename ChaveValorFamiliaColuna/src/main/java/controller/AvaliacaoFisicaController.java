@@ -8,11 +8,9 @@ import model.AvaliacaoFisica;
 public class AvaliacaoFisicaController {
 
     private AvaliacaoFisicaDAO dao;
-    private MapperAvaliacaoFisica mapperAvaliacaoFisica;
 
     public AvaliacaoFisicaController() {
         this.dao = new AvaliacaoFisicaDAO();
-        this.mapperAvaliacaoFisica = new MapperAvaliacaoFisica();
     }
 
     public void adicionarAvaliacao(AvaliacaoFisicaDTO dto) {

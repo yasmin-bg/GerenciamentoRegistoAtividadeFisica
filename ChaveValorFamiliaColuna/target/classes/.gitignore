@@ -1,6 +1,7 @@
-/META-INF/
+/dao/
+/controller/
 /view/
-/model/
 /dto/
 /mapper/
-/ProjetoNoSQL/
+/model/
+/META-INF/

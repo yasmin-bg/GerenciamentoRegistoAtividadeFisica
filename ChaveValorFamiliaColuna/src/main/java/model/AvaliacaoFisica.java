@@ -8,8 +8,22 @@ public class AvaliacaoFisica {
     private Double altura;
     private Double imc;
     private String data;
+    
+    public AvaliacaoFisica(Long id, Long idUsuario, Double peso, Double altura, Double imc, String data) {
+		super();
+		this.id = id;
+		this.idUsuario = idUsuario;
+		this.peso = peso;
+		this.altura = altura;
+		this.imc = imc;
+		this.data = data;
+	}
 
-    public Long getId() {
+	public AvaliacaoFisica() {
+		
+	}
+
+	public Long getId() {
         return id;
     }
 

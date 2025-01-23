@@ -14,279 +14,302 @@ import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) {
-		
-		Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
 
-		UsuarioController usuarioController = new UsuarioController();
-		AvaliacaoFisicaController avaliacaoFisicaController = new AvaliacaoFisicaController();
-		ExercicioController exercicioController = new ExercicioController();
+        Scanner scanner = new Scanner(System.in);
 
-		String escolha = "";
+        UsuarioController usuarioController = new UsuarioController();
+        AvaliacaoFisicaController avaliacaoFisicaController = new AvaliacaoFisicaController();
+        ExercicioController exercicioController = new ExercicioController();
 
-		while(!escolha.equals("13")) {
-			System.out.println("--------------------------------------------");
-			System.out.println("Usuário");
-			System.out.println("Selecione uma opção:");
-			System.out.println("1. Adicionar Usuario");
-			System.out.println("2. Atualizar Usuario");
-			System.out.println("3. Obter Usuario");
-			System.out.println("4. Excluir Usuario");
+        String escolha = "";
 
-			System.out.println("--------------------------------------------");
+        while (!escolha.equals("14")) {
+            System.out.println("--------------------------------------------");
+            System.out.println("Usuário");
+            System.out.println("Selecione uma opção:");
+            System.out.println("1. Adicionar Usuario");
+            System.out.println("2. Atualizar Usuario");
+            System.out.println("3. Obter Usuario");
+            System.out.println("4. Excluir Usuario");
+            System.out.println("5. Listar Todos os Usuários");
 
-			System.out.println("Exercicio");
+            System.out.println("--------------------------------------------");
 
-			System.out.println("5. Adicionar Exercicio");
-			System.out.println("6. Atualizar Exercicio");
-			System.out.println("7. Obter Exercicio");
-			System.out.println("8. Excluir Exercicio");
+            System.out.println("Exercicio");
 
-			System.out.println("--------------------------------------------");
+            System.out.println("6. Adicionar Exercicio");
+            System.out.println("7. Atualizar Exercicio");
+            System.out.println("8. Obter Exercicio");
+            System.out.println("9. Excluir Exercicio");
+            System.out.println("10. Listar Todos os Exercícios");
 
-			System.out.println("Avaliacao Física");
+            System.out.println("--------------------------------------------");
 
-			System.out.println("9. Adicionar Avaliacao Física");
-			System.out.println("10. Atualizar Avaliacao Física");
-			System.out.println("11. Obter Avaliacao Física");
-			System.out.println("12. Excluir Avaliacao Física");
+            System.out.println("Avaliacao Física");
 
-			System.out.println("--------------------------------------------");
+            System.out.println("11. Adicionar Avaliacao Física");
+            System.out.println("12. Atualizar Avaliacao Física");
+            System.out.println("13. Obter Avaliacao Física");
+            System.out.println("14. Excluir Avaliacao Física");
 
-			System.out.println("13. Sair");
+            System.out.println("--------------------------------------------");
 
-			escolha = scanner.nextLine().toLowerCase();
+            escolha = scanner.nextLine().toLowerCase();
 
-			switch(escolha) {
-			case "1": 
-				System.out.println("Digite o id:");
-				Long idUsuario = scanner.nextLong();
-				scanner.nextLine();
-				System.out.println("Digite o nome do Usuario:");
-				String nomeUsuario = scanner.nextLine();
-				System.out.println("Digite o email do Usuario:");
-				String emailUsuario = scanner.nextLine();
-				System.out.println("Digite a senha do Usuario:");
-				String senhaUsuario = scanner.nextLine();
-				UsuarioDTO usuarioDTO = new UsuarioDTO();
-				usuarioDTO.setId(idUsuario);
-				usuarioDTO.setNome(nomeUsuario);
-				usuarioDTO.setEmail(emailUsuario);
-				usuarioDTO.setSenha(senhaUsuario);
-				usuarioController.adicionarUsuario(usuarioDTO);
-				break;
+            switch (escolha) {
+                case "1":
+                    System.out.println("Digite o id do Usuário:");
+                    Long idUsuario = scanner.nextLong();
+                    scanner.nextLine();
 
-			case "2":
-				System.out.println("Digite o id:");
-				Long idAtualizarUsuario = scanner.nextLong();
-				scanner.nextLine();
-				System.out.println("Digite o novo nome do Usuario:");
-				String nomeAtualizadoUsuario = scanner.nextLine();
-				System.out.println("Digite o novo email do Usuario:");
-				String emailAtualizadoUsuario = scanner.nextLine();
-				System.out.println("Digite a nova senha do Usuario:");
-				String senhaAtualizadaUsuario = scanner.nextLine();
-				UsuarioDTO usuarioDTOUpdate = new UsuarioDTO();
-				usuarioDTOUpdate.setId(idAtualizarUsuario);
-				usuarioDTOUpdate.setNome(nomeAtualizadoUsuario);
-				usuarioDTOUpdate.setEmail(emailAtualizadoUsuario);
-				usuarioDTOUpdate.setSenha(senhaAtualizadaUsuario);
-				usuarioController.atualizarUsuario(usuarioDTOUpdate);
-				break;
+                    // Verificação para evitar duplicação de ID
+                    if (usuarioController.obterUsuario(new UsuarioDTO(idUsuario)) != null) {
+                        System.out.println("Erro: Já existe um usuário com esse ID.");
+                        break;
+                    }
 
-			case "3":
-				System.out.println("Digite o id:");
-				Long idObterUsuario = scanner.nextLong();
-				scanner.nextLine();
-				UsuarioDTO usuarioDTOGet = new UsuarioDTO();
-				usuarioDTOGet.setId(idObterUsuario);
-				Usuario usuario = usuarioController.obterUsuario(usuarioDTOGet);
-				if (usuario != null) {
-					System.out.println("Usuario encontrado: " + usuario.getNome());
-				} else {
-					System.out.println("Usuario não encontrado");
-				}
-				break;
+                    System.out.println("Digite o nome do Usuário:");
+                    String nomeUsuario = scanner.nextLine();
+                    System.out.println("Digite o email do Usuário:");
+                    String emailUsuario = scanner.nextLine();
+                    System.out.println("Digite a senha do Usuário:");
+                    String senhaUsuario = scanner.nextLine();
+                    
+                    UsuarioDTO usuarioDTO = new UsuarioDTO(idUsuario, nomeUsuario, emailUsuario, senhaUsuario);
+                    usuarioController.adicionarUsuario(usuarioDTO);
+                    System.out.println("Usuário adicionado com sucesso.");
+                    break;
 
-			case "4":
-				System.out.println("Digite o id:");
-				Long idExcluirUsuario = scanner.nextLong();
-				scanner.nextLine();
-				UsuarioDTO usuarioDTODelete = new UsuarioDTO();
-				usuarioDTODelete.setId(idExcluirUsuario);
-				usuarioController.excluirUsuario(usuarioDTODelete);
-				System.out.println("Usuario excluído com sucesso");
-				break;
+                case "2":
+                    System.out.println("Digite o id do Usuário a ser atualizado:");
+                    Long idAtualizarUsuario = scanner.nextLong();
+                    scanner.nextLine();
+                    System.out.println("Digite o novo nome do Usuário:");
+                    String nomeAtualizadoUsuario = scanner.nextLine();
+                    System.out.println("Digite o novo email do Usuário:");
+                    String emailAtualizadoUsuario = scanner.nextLine();
+                    System.out.println("Digite a nova senha do Usuário:");
+                    String senhaAtualizadaUsuario = scanner.nextLine();
+                    UsuarioDTO usuarioDTOUpdate = new UsuarioDTO(idAtualizarUsuario, nomeAtualizadoUsuario, emailAtualizadoUsuario, senhaAtualizadaUsuario);
+                    usuarioController.atualizarUsuario(usuarioDTOUpdate);
+                    System.out.println("Usuário atualizado com sucesso.");
+                    break;
 
-			case "5":
-				System.out.println("Digite o id:");
-				long idExercicio = scanner.nextLong();
-				scanner.nextLine();
-				System.out.println("Digite o tipo de Exercicio:");
-				String tipoExercicio = scanner.nextLine();
-				System.out.println("Digite a duração do Exercicio (em minutos):");
-				int duracao = scanner.nextInt();
-				System.out.println("Digite as calorias queimadas:");
-				int caloriasQueimadas = scanner.nextInt();
+                case "3":
+                    System.out.println("Digite o id do Usuário a ser buscado:");
+                    Long idObterUsuario = scanner.nextLong();
+                    scanner.nextLine();
+                    UsuarioDTO usuarioDTOGet = new UsuarioDTO();
+                    usuarioDTOGet.setId(idObterUsuario);
+                    Usuario usuario = usuarioController.obterUsuario(usuarioDTOGet);
+                    if (usuario != null) {
+                        System.out.println("Usuário encontrado: " + usuario.getNome());
+                    } else {
+                        System.out.println("Usuário não encontrado.");
+                    }
+                    break;
 
-				System.out.println("Digite o id do Usuario:");
-				Long idUsuarioExercicio = scanner.nextLong();
-				scanner.nextLine();
+                case "4":
+                    System.out.println("Digite o id do Usuário a ser excluído:");
+                    Long idExcluirUsuario = scanner.nextLong();
+                    scanner.nextLine();
+                    UsuarioDTO usuarioDTODelete = new UsuarioDTO();
+                    usuarioDTODelete.setId(idExcluirUsuario);
+                    usuarioController.excluirUsuario(usuarioDTODelete);
+                    System.out.println("Usuário excluído com sucesso.");
+                    break;
 
-				UsuarioDTO usuarioDTOExercicio = new UsuarioDTO();
-				usuarioDTOExercicio.setId(idUsuarioExercicio);
-				Usuario usuarioAssociado = usuarioController.obterUsuario(usuarioDTOExercicio);
+                case "5": // Listar Todos os Usuários
+                    System.out.println("Lista de Usuários:");
+                    for (UsuarioDTO usuarioList : usuarioController.listarTodosUsuarios()) {
+                        System.out.println("id: " + usuarioList.getId() + ", Nome: " + usuarioList.getNome());
+                    }
+                    break;
 
-				if (usuarioAssociado != null) {
-					ExercicioDTO exercicioDTO = new ExercicioDTO(idExercicio,idUsuarioExercicio, tipoExercicio, duracao, caloriasQueimadas);
-					exercicioController.adicionarExercicio(exercicioDTO);
-				} else {
-					System.out.println("Usuario não encontrado");
-				}
-				break;
+                case "6":
+                    System.out.println("Digite o id do Exercício:");
+                    long idExercicio = scanner.nextLong();
+                    scanner.nextLine();
 
-			case "6":
-				System.out.println("Digite o id:");
-				long idAtualizarExercicio = scanner.nextLong();
-				scanner.nextLine();
-				System.out.println("Digite o id do Usuário:");
-				Long idUsuarioExercicioUpdate = scanner.nextLong();
-				scanner.nextLine();
-				
-				
-				System.out.println("Digite o novo tipo de Exercicio:");
-				String tipoExercicioAtualizado = scanner.nextLine();
-				System.out.println("Digite a nova duração do Exercicio (em minutos):");
-				int duracaoAtualizada = scanner.nextInt();
-				System.out.println("Digite as novas calorias queimadas:");
-				int caloriasQueimadasAtualizadas = scanner.nextInt();
+                    // Verificação para evitar duplicação de ID
+                    if (exercicioController.obterExercicio(new ExercicioDTO(idExercicio)) != null) {
+                        System.out.println("Erro: Já existe um exercício com esse ID.");
+                        break;
+                    }
 
+                    System.out.println("Digite o tipo de Exercício:");
+                    String tipoExercicio = scanner.nextLine();
+                    System.out.println("Digite a duração do Exercício (em minutos):");
+                    int duracao = scanner.nextInt();
+                    System.out.println("Digite as calorias queimadas no exercício:");
+                    int caloriasQueimadas = scanner.nextInt();
 
-				UsuarioDTO usuarioDTOExercicioUpdate = new UsuarioDTO();
-				usuarioDTOExercicioUpdate.setId(idUsuarioExercicioUpdate);
-				Usuario usuarioAssociadoUpdate = usuarioController.obterUsuario(usuarioDTOExercicioUpdate);
+                    System.out.println("Digite o id do Usuário associado ao exercício:");
+                    Long idUsuarioExercicio = scanner.nextLong();
+                    scanner.nextLine();
 
-				if (usuarioAssociadoUpdate != null) {
-					ExercicioDTO exercicioDTOUpdate = new ExercicioDTO(idAtualizarExercicio, idUsuarioExercicioUpdate, tipoExercicioAtualizado, duracaoAtualizada, caloriasQueimadasAtualizadas);
-					exercicioController.atualizarExercicio(exercicioDTOUpdate);
-				} else {
-					System.out.println("Usuario não encontrado");
-				}
-				break;
+                    UsuarioDTO usuarioDTOExercicio = new UsuarioDTO();
+                    usuarioDTOExercicio.setId(idUsuarioExercicio);
+                    Usuario usuarioAssociado = usuarioController.obterUsuario(usuarioDTOExercicio);
 
-			case "7":
-				System.out.println("Digite o id:");
-				long idObterExercicio = scanner.nextLong();
-				ExercicioDTO exercicioDTOGet = new ExercicioDTO();
-				exercicioDTOGet.setId(idObterExercicio);
-				Exercicio exercicio = exercicioController.obterExercicio(exercicioDTOGet);
-				if (exercicio != null) {
-					System.out.println("Exercicio encontrado: " + exercicio.getTipoExercicio() + ", Duração: " + exercicio.getDuracao() + " minutos, Calorias queimadas: " + exercicio.getCaloriasQueimadas());
-				} else {
-					System.out.println("Exercicio não encontrado.");
-				}
-				break;
+                    if (usuarioAssociado != null) {
+                        ExercicioDTO exercicioDTO = new ExercicioDTO(idExercicio, idUsuarioExercicio, tipoExercicio, duracao, caloriasQueimadas);
+                        exercicioController.adicionarExercicio(exercicioDTO);
+                        System.out.println("Exercício adicionado com sucesso.");
+                    } else {
+                        System.out.println("Erro: Usuário não encontrado.");
+                    }
+                    break;
 
-			case "8":
-				System.out.println("Digite o id:");
-				long idExcluirExercicio = scanner.nextLong();
-				scanner.nextLine();
-				ExercicioDTO exercicioDTODelete = new ExercicioDTO();
-				exercicioDTODelete.setId(idExcluirExercicio);
-				exercicioController.excluirExercicio(exercicioDTODelete);
-				System.out.println("Exercicio excluído com sucesso.");
-				break;
+                case "7":
+                    System.out.println("Digite o id do Exercício a ser atualizado:");
+                    long idAtualizarExercicio = scanner.nextLong();
+                    scanner.nextLine();
+                    System.out.println("Digite o id do Usuário:");
+                    Long idUsuarioExercicioUpdate = scanner.nextLong();
+                    scanner.nextLine();
 
-			case "9":
-				System.out.println("Digite o id:");
-				Long idAvaliacao = scanner.nextLong();
-				System.out.println("Digite o id do Usuário:");
-				Long idUsuarioAvaliacao = scanner.nextLong();
-				System.out.println("Digite o peso:");
-				double peso = scanner.nextDouble();
-				System.out.println("Digite a altura:");
-				double altura = scanner.nextDouble();
-				double imc = peso / (altura * altura);
-				scanner.nextLine();
+                    System.out.println("Digite o novo tipo de Exercício:");
+                    String tipoExercicioAtualizado = scanner.nextLine();
+                    System.out.println("Digite a nova duração do Exercício (em minutos):");
+                    int duracaoAtualizada = scanner.nextInt();
+                    System.out.println("Digite as novas calorias queimadas:");
+                    int caloriasQueimadasAtualizadas = scanner.nextInt();
 
-				UsuarioDTO usuarioDTOAvaliacao = new UsuarioDTO();
-				usuarioDTOAvaliacao.setId(idUsuarioAvaliacao);
-				Usuario usuarioAvaliacao = usuarioController.obterUsuario(usuarioDTOAvaliacao);
+                    UsuarioDTO usuarioDTOExercicioUpdate = new UsuarioDTO();
+                    usuarioDTOExercicioUpdate.setId(idUsuarioExercicioUpdate);
+                    Usuario usuarioAssociadoUpdate = usuarioController.obterUsuario(usuarioDTOExercicioUpdate);
 
-				if (usuarioAvaliacao != null) {
-					AvaliacaoFisicaDTO avaliacaoDTO = new AvaliacaoFisicaDTO();
-					avaliacaoDTO.setId(idAvaliacao);
-					avaliacaoDTO.setIdUsuario(idUsuarioAvaliacao);
-					avaliacaoDTO.setPeso(peso);
-					avaliacaoDTO.setAltura(altura);
-					avaliacaoDTO.setImc(imc);
-					avaliacaoFisicaController.adicionarAvaliacao(avaliacaoDTO);
-				} else {
-					System.out.println("Usuario não encontrado");
-				}
-				break;
+                    if (usuarioAssociadoUpdate != null) {
+                        ExercicioDTO exercicioDTOUpdate = new ExercicioDTO(idAtualizarExercicio, idUsuarioExercicioUpdate, tipoExercicioAtualizado, duracaoAtualizada, caloriasQueimadasAtualizadas);
+                        exercicioController.atualizarExercicio(exercicioDTOUpdate);
+                        System.out.println("Exercício atualizado com sucesso.");
+                    } else {
+                        System.out.println("Erro: Usuário não encontrado.");
+                    }
+                    break;
 
-			case "10":
-				System.out.println("Digite o id:");
-				Long idAtualizarAvaliacao = scanner.nextLong();
-				System.out.println("Digite o id do Usuário:");
-				Long idUsuarioAvaliacaoUpdate = scanner.nextLong();
-				System.out.println("Digite o novo peso:");
-				double novoPeso = scanner.nextDouble();
-				System.out.println("Digite a nova altura:");
-				double novaAltura = scanner.nextDouble();
-				double novoImc = novoPeso / (novaAltura * novaAltura);
-				scanner.nextLine();
+                case "8":
+                    System.out.println("Digite o id do Exercício a ser buscado:");
+                    long idObterExercicio = scanner.nextLong();
+                    ExercicioDTO exercicioDTOGet = new ExercicioDTO();
+                    exercicioDTOGet.setId(idObterExercicio);
+                    Exercicio exercicio = exercicioController.obterExercicio(exercicioDTOGet);
+                    if (exercicio != null) {
+                        System.out.println("Exercício encontrado: Tipo: " + exercicio.getTipoExercicio() + ", Duração: " + exercicio.getDuracao() + " minutos, Calorias queimadas: " + exercicio.getCaloriasQueimadas());
+                    } else {
+                        System.out.println("Exercício não encontrado.");
+                    }
+                    break;
 
-				UsuarioDTO usuarioDTOAvaliacaoUpdate = new UsuarioDTO();
-				usuarioDTOAvaliacaoUpdate.setId(idUsuarioAvaliacaoUpdate);
-				Usuario usuarioAvaliacaoUpdate = usuarioController.obterUsuario(usuarioDTOAvaliacaoUpdate);
+                case "9":
+                    System.out.println("Digite o id do Exercício a ser excluído:");
+                    long idExcluirExercicio = scanner.nextLong();
+                    scanner.nextLine();
+                    ExercicioDTO exercicioDTODelete = new ExercicioDTO();
+                    exercicioDTODelete.setId(idExcluirExercicio);
+                    exercicioController.excluirExercicio(exercicioDTODelete);
+                    System.out.println("Exercício excluído com sucesso.");
+                    break;
 
-				if (usuarioAvaliacaoUpdate != null) {
-					AvaliacaoFisicaDTO avaliacaoDTOUpdate = new AvaliacaoFisicaDTO();
-					avaliacaoDTOUpdate.setId(idAtualizarAvaliacao);
-					avaliacaoDTOUpdate.setIdUsuario(idUsuarioAvaliacaoUpdate);
-					avaliacaoDTOUpdate.setPeso(novoPeso);
-					avaliacaoDTOUpdate.setAltura(novaAltura);
-					avaliacaoDTOUpdate.setImc(novoImc);
-					avaliacaoFisicaController.atualizarAvaliacao(avaliacaoDTOUpdate);
-				} else {
-					System.out.println("Usuario não encontrado");
-				}
-				break;
+                case "10": // Listar Todos os Exercícios
+                    System.out.println("Lista de Exercícios:");
+                    for (ExercicioDTO exercicioList : exercicioController.listarTodosExerciciosComUsuarioRelacionado()) {
+                        System.out.println("id: " + exercicioList.getId() + ", Tipo: " + exercicioList.getTipoExercicio());
+                    }
+                    break;
 
-			case "11":
-				System.out.println("Digite o id:");
-				Long idObterAvaliacao = scanner.nextLong();
-				AvaliacaoFisicaDTO avaliacaoDTOGet = new AvaliacaoFisicaDTO();
-				avaliacaoDTOGet.setId(idObterAvaliacao);
-				AvaliacaoFisica avaliacao = avaliacaoFisicaController.obterAvaliacao(avaliacaoDTOGet);
-				if (avaliacao != null) {
-					System.out.println("Avaliação Física encontrada: Peso: " + avaliacao.getPeso() + ", Altura: " + avaliacao.getAltura() + ", IMC: " + avaliacao.getImc());
-				} else {
-					System.out.println("Avaliação Física não encontrada");
-				}
-				break;
+                case "11":
+                    System.out.println("Digite o id da Avaliação Física:");
+                    Long idAvaliacao = scanner.nextLong();
+                    scanner.nextLine();
 
-			case "12":
-				System.out.println("Digite o id:");
-				Long idExcluirAvaliacao = scanner.nextLong();
-				scanner.nextLine();
-				AvaliacaoFisicaDTO avaliacaoDTODelete = new AvaliacaoFisicaDTO();
-				avaliacaoDTODelete.setId(idExcluirAvaliacao);
-				avaliacaoFisicaController.excluirAvaliacao(avaliacaoDTODelete);
-				System.out.println("Avaliação Física excluída com sucesso");
-				break;
+                    // Verificação para evitar duplicação de ID
+                    if (avaliacaoFisicaController.obterAvaliacao(new AvaliacaoFisicaDTO(idAvaliacao)) != null) {
+                        System.out.println("Erro: Já existe uma avaliação com esse ID.");
+                        break;
+                    }
 
-			case "13":
-				System.out.println("Saindo...");
-				break;
+                    System.out.println("Digite o id do Usuário:");
+                    Long idUsuarioAvaliacao = scanner.nextLong();
+                    System.out.println("Digite o peso do Usuário:");
+                    double peso = scanner.nextDouble();
+                    System.out.println("Digite a altura do Usuário:");
+                    double altura = scanner.nextDouble();
+                    double imc = peso / (altura * altura);
+                    scanner.nextLine();
 
-			default:
-				System.out.println("Opção inválida");
-				break;
-			}
-		}
-		scanner.close();
-	}
+                    UsuarioDTO usuarioDTOAvaliacao = new UsuarioDTO();
+                    usuarioDTOAvaliacao.setId(idUsuarioAvaliacao);
+                    Usuario usuarioAvaliacao = usuarioController.obterUsuario(usuarioDTOAvaliacao);
+
+                    if (usuarioAvaliacao != null) {
+                        AvaliacaoFisicaDTO avaliacaoDTO = new AvaliacaoFisicaDTO();
+                        avaliacaoDTO.setId(idAvaliacao);
+                        avaliacaoDTO.setIdUsuario(idUsuarioAvaliacao);
+                        avaliacaoDTO.setPeso(peso);
+                        avaliacaoDTO.setAltura(altura);
+                        avaliacaoDTO.setImc(imc);
+                        avaliacaoFisicaController.adicionarAvaliacao(avaliacaoDTO);
+                        System.out.println("Avaliação Física adicionada com sucesso.");
+                    } else {
+                        System.out.println("Erro: Usuário não encontrado.");
+                    }
+                    break;
+
+                case "12":
+                    System.out.println("Digite o id da Avaliação Física a ser atualizada:");
+                    Long idAtualizarAvaliacao = scanner.nextLong();
+                    System.out.println("Digite o id do Usuário:");
+                    Long idUsuarioAvaliacaoUpdate = scanner.nextLong();
+                    System.out.println("Digite o novo peso:");
+                    double novoPeso = scanner.nextDouble();
+                    System.out.println("Digite a nova altura:");
+                    double novaAltura = scanner.nextDouble();
+                    double novoImc = novoPeso / (novaAltura * novaAltura);
+                    scanner.nextLine();
+
+                    UsuarioDTO usuarioDTOAvaliacaoUpdate = new UsuarioDTO();
+                    usuarioDTOAvaliacaoUpdate.setId(idUsuarioAvaliacaoUpdate);
+                    Usuario usuarioAvaliacaoUpdate = usuarioController.obterUsuario(usuarioDTOAvaliacaoUpdate);
+
+                    if (usuarioAvaliacaoUpdate != null) {
+                        AvaliacaoFisicaDTO avaliacaoDTOUpdate = new AvaliacaoFisicaDTO();
+                        avaliacaoDTOUpdate.setId(idAtualizarAvaliacao);
+                        avaliacaoDTOUpdate.setIdUsuario(idUsuarioAvaliacaoUpdate);
+                        avaliacaoDTOUpdate.setPeso(novoPeso);
+                        avaliacaoDTOUpdate.setAltura(novaAltura);
+                        avaliacaoDTOUpdate.setImc(novoImc);
+                        avaliacaoFisicaController.atualizarAvaliacao(avaliacaoDTOUpdate);
+                        System.out.println("Avaliação Física atualizada com sucesso.");
+                    } else {
+                        System.out.println("Erro: Usuário não encontrado.");
+                    }
+                    break;
+
+                case "13":
+                    System.out.println("Digite o id da Avaliação Física a ser buscada:");
+                    Long idObterAvaliacao = scanner.nextLong();
+                    AvaliacaoFisicaDTO avaliacaoDTOGet = new AvaliacaoFisicaDTO();
+                    avaliacaoDTOGet.setId(idObterAvaliacao);
+                    AvaliacaoFisica avaliacao = avaliacaoFisicaController.obterAvaliacao(avaliacaoDTOGet);
+                    if (avaliacao != null) {
+                        System.out.println("Avaliação Física encontrada: Peso: " + avaliacao.getPeso() + ", Altura: " + avaliacao.getAltura() + ", IMC: " + avaliacao.getImc());
+                    } else {
+                        System.out.println("Avaliação Física não encontrada.");
+                    }
+                    break;
+
+                case "14":
+                    System.out.println("Saindo...");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+                    break;
+            }
+        }
+        scanner.close();
+    }
 }
