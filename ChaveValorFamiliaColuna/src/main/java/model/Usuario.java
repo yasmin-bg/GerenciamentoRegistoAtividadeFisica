@@ -3,11 +3,11 @@ package model;
 public class Usuario {
 	
     private long id;
-    private String nome;
-    private String email;
-    private String senha;
+    private byte[] nome;  
+    private byte[] email; 
+    private byte[] senha; 
 
-	public Usuario(long id, String nome, String email, String senha) {
+    public Usuario(long id, byte[] nome, byte[] email, byte[] senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -26,27 +26,27 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNome() {
+    public byte[] getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(byte[] nome) { 
         this.nome = nome;
     }
 
-    public String getEmail() {
+    public byte[] getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(byte[] email) { 
         this.email = email;
     }
     
-    public String getSenha() {
+    public byte[] getSenha() { 
     	return senha;
     }
     
-    public void setSenha(String senha) {
+    public void setSenha(byte[] senha) { 
     	this.senha = senha;
     }
 }

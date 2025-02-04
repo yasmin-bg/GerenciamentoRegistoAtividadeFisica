@@ -4,11 +4,11 @@ public class Exercicio {
 	
     private long id;
     private long idUsuario;
-	private String tipoExercicio;
+    private byte[] tipoExercicio; 
     private int duracao; 
     private int caloriasQueimadas;
 
-    public Exercicio(long id, long idUsuario, String tipoExercicio, int duracao, int caloriasQueimadas) {
+    public Exercicio(long id, long idUsuario, byte[] tipoExercicio, int duracao, int caloriasQueimadas) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.tipoExercicio = tipoExercicio;
@@ -28,19 +28,19 @@ public class Exercicio {
         this.id = id;
     }
 
-    public Long getIdUsuario() {
+    public long getIdUsuario() {
     	return idUsuario;
     }
     
-    public void setIdUsuario(Long idUsuario) {
+    public void setIdUsuario(long idUsuario) {
     	this.idUsuario = idUsuario;
     }
     
-    public String getTipoExercicio() {
+    public byte[] getTipoExercicio() {
         return tipoExercicio;
     }
 
-    public void setTipoExercicio(String tipoExercicio) {
+    public void setTipoExercicio(byte[] tipoExercicio) {
         this.tipoExercicio = tipoExercicio;
     }
 

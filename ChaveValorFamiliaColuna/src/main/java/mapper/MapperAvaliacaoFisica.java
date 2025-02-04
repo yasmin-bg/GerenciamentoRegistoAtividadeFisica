@@ -2,15 +2,8 @@ package mapper;
 
 import dto.AvaliacaoFisicaDTO;
 import model.AvaliacaoFisica;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MapperAvaliacaoFisica {
-	
-    private ObjectMapper objectMapper;
-
-    public MapperAvaliacaoFisica() {
-        this.objectMapper = new ObjectMapper();
-    }
 
     public AvaliacaoFisicaDTO toDTO(AvaliacaoFisica entity) {
         AvaliacaoFisicaDTO dto = new AvaliacaoFisicaDTO();
@@ -30,21 +23,5 @@ public class MapperAvaliacaoFisica {
         entity.setAltura(dto.getAltura());
         entity.setImc(dto.getImc());
         return entity;
-    }
-
-    public String toJson(AvaliacaoFisicaDTO dto) {
-        try {
-            return objectMapper.writeValueAsString(dto);
-        } catch (Exception e) {
-            throw new RuntimeException("Erro ao converter DTO para JSON", e);
-        }
-    }
-
-    public AvaliacaoFisicaDTO fromJson(String json) {
-        try {
-            return objectMapper.readValue(json, AvaliacaoFisicaDTO.class);
-        } catch (Exception e) {
-            throw new RuntimeException("Erro ao converter JSON para DTO", e);
-        }
     }
 }
