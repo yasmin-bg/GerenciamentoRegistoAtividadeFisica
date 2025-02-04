@@ -1,55 +1,57 @@
 package dto;
 
-public class UsuarioDTO {
-    private Long id;
-    private String nome;
-    private String email;
-    private String senha;
-    
-    public UsuarioDTO(Long id, String nome, String email, String senha) {
-		this.id = id;
-		this.nome = nome;
-		this.email = email;
-		this.senha = senha;
-	}
-    
-    public UsuarioDTO(Long id) {
-		this.id = id;
-	}
+import java.io.Serializable;
 
-	public UsuarioDTO() {
-    	
+public class UsuarioDTO implements Serializable {
+
+    private long id;
+    private byte[] nome;  
+    private byte[] email; 
+    private byte[] senha; 
+
+    public UsuarioDTO(long id, byte[] nome, byte[] email, byte[] senha) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
     }
 
-	public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public UsuarioDTO(long id) {
         this.id = id;
     }
 
-    public String getNome() {
+    public UsuarioDTO() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public byte[] getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(byte[] nome) {
         this.nome = nome;
     }
 
-    public String getEmail() {
+    public byte[] getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(byte[] email) {
         this.email = email;
     }
 
-    public String getSenha() {
+    public byte[] getSenha() {
         return senha;
     }
 
-    public void setSenha(String senha) { 
+    public void setSenha(byte[] senha) { 
         this.senha = senha;
     }
 }

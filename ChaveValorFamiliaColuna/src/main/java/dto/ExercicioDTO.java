@@ -1,27 +1,28 @@
 package dto;
 
-public class ExercicioDTO {
-	
+import java.io.Serializable;
+
+public class ExercicioDTO implements Serializable {
+
     private long id;
     private long idUsuario;
-	private String tipoExercicio;
+    private byte[] tipoExercicio;  
     private int duracao;
     private int caloriasQueimadas;
 
-    public ExercicioDTO(long id, long idUsuario, String tipoExercicio, int duracao, int caloriasQueimadas) {
+    public ExercicioDTO(long id, long idUsuario, byte[] tipoExercicio, int duracao, int caloriasQueimadas) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.tipoExercicio = tipoExercicio;
         this.duracao = duracao;
         this.caloriasQueimadas = caloriasQueimadas;
     }
-    
+
     public ExercicioDTO(long id) {
-		this.id = id;
-	}
-    
-	public ExercicioDTO() {
-    	
+        this.id = id;
+    }
+
+    public ExercicioDTO() {
     }
 
     public long getId() {
@@ -32,19 +33,19 @@ public class ExercicioDTO {
         this.id = id;
     }
 
-    public Long getIdUsuario() {
-    	return idUsuario;
+    public long getIdUsuario() {
+        return idUsuario;
     }
-    
-    public void setIdUsuario(Long idUsuario) {
-    	this.idUsuario = idUsuario;
+
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
     }
-    
-    public String getTipoExercicio() {
+
+    public byte[] getTipoExercicio() {
         return tipoExercicio;
     }
 
-    public void setTipoExercicio(String tipoExercicio) {
+    public void setTipoExercicio(byte[] tipoExercicio) {
         this.tipoExercicio = tipoExercicio;
     }
 

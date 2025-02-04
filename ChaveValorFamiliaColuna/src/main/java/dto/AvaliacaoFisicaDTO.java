@@ -1,42 +1,43 @@
 package dto;
 
-public class AvaliacaoFisicaDTO {
-	
-    private Long id;
-    private Long idUsuario;
+import java.io.Serializable;
+
+public class AvaliacaoFisicaDTO implements Serializable {
+
+    private long id;
+    private long idUsuario;
     private double peso;
     private double altura;
     private double imc;
 
-    public AvaliacaoFisicaDTO(Long id, Long idUsuario, double peso, double altura, double imc) {
-		this.id = id;
-		this.idUsuario = idUsuario;
-		this.peso = peso;
-		this.altura = altura;
-		this.imc = imc;
-	}
-  
-    public AvaliacaoFisicaDTO(Long id) {
-		this.id = id;
-	}
-
-	public AvaliacaoFisicaDTO() {
-    	
+    public AvaliacaoFisicaDTO(long id, long idUsuario, double peso, double altura, double imc) {
+        this.id = id;
+        this.idUsuario = idUsuario;
+        this.peso = peso;
+        this.altura = altura;
+        this.imc = imc;
     }
 
-	public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public AvaliacaoFisicaDTO(long id) {
         this.id = id;
     }
 
-    public Long getIdUsuario() {
+    public AvaliacaoFisicaDTO() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
+    public void setIdUsuario(long idUsuario) {
         this.idUsuario = idUsuario;
     }
 

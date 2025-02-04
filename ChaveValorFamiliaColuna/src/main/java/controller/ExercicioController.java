@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import dao.ExercicioDAO;
@@ -14,23 +15,11 @@ public class ExercicioController {
         this.dao = new ExercicioDAO();
     }
 
-    public void adicionarExercicio(ExercicioDTO dto) {
+    public void adicionarExercicio(ExercicioDTO dto) throws IOException {
     	dao.adicionarExercicio(dto);
     }
 
-    public Exercicio obterExercicio(ExercicioDTO dto) {
+    public ExercicioDTO obterExercicio(ExercicioDTO dto) throws IOException, ClassNotFoundException {
     	return dao.obterExercicio(dto);
-    }
-
-    public void excluirExercicio(ExercicioDTO dto) {
-    	dao.excluirExercicio(dto);
-    }
-
-    public void atualizarExercicio(ExercicioDTO dto) {
-       dao.atualizarExercicio(dto);
-    }
-    
-    public List<ExercicioDTO> listarTodosExerciciosComUsuarioRelacionado() {
-    	return dao.listarTodosExerciciosComUsuarioRelacionado();
     }
 }
