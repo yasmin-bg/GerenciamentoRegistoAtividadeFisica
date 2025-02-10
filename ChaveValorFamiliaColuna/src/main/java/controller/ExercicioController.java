@@ -22,4 +22,8 @@ public class ExercicioController {
     public ExercicioDTO obterExercicio(ExercicioDTO dto) throws IOException, ClassNotFoundException {
     	return dao.obterExercicio(dto);
     }
+    
+    public void removerExercicio(ExercicioDTO dto) {
+    	dao.removerExercicio(dto);
+    }
 }

@@ -25,4 +25,9 @@ public class UsuarioDAO implements IUsuarioDAO {
         byte[] dados = jedis.hget(chave.getBytes(), "dados".getBytes());
         return (dados != null) ? Serializador.desserializar(dados, UsuarioDTO.class) : null;
     }
+    
+    public void removerUsuario(UsuarioDTO dto) {
+        String chave = "usuario:" + dto.getId();
+        jedis.del(chave.getBytes());
+    }
 }

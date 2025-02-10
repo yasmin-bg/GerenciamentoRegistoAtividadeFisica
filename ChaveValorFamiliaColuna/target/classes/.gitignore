@@ -1,7 +1,7 @@
 /META-INF/
-/controller/
 /view/
-/dao/
-/dto/
 /mapper/
 /model/
+/dto/
+/dao/
+/controller/

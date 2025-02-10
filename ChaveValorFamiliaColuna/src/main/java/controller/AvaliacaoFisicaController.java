@@ -5,6 +5,7 @@ import java.util.List;
 
 import dao.AvaliacaoFisicaDAO;
 import dto.AvaliacaoFisicaDTO;
+import dto.ExercicioDTO;
 import mapper.MapperAvaliacaoFisica;
 import model.AvaliacaoFisica;
 
@@ -23,5 +24,9 @@ public class AvaliacaoFisicaController {
 
     public AvaliacaoFisicaDTO obterAvaliacao(AvaliacaoFisicaDTO dto) throws IOException, ClassNotFoundException {
     	return dao.obterAvaliacao(dto);
+    }
+    
+    public void removerAvaliacao(AvaliacaoFisicaDTO dto) {
+    	dao.removerAvaliacao(dto);
     }
 }

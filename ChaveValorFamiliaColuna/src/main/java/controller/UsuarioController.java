@@ -21,4 +21,8 @@ public class UsuarioController {
     public UsuarioDTO obterUsuario(UsuarioDTO dto) throws IOException, ClassNotFoundException {
         return dao.obterUsuario(dto);
     }
+    
+    public void removerUsuario(UsuarioDTO dto) {
+    	dao.removerUsuario(dto);
+    }
 }
