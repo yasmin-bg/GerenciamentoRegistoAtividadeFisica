@@ -4,12 +4,11 @@ public class AvaliacaoFisica {
 	
     private long id;
     private long idUsuario;
-    private byte[] peso;
-    private byte[] altura;
-    private byte[] imc;
+    private String peso;
+    private String altura;
+    private String imc;
     
-	public AvaliacaoFisica(long id, long idUsuario, byte[] peso, byte[] altura, byte[] imc) {
-		super();
+	public AvaliacaoFisica(long id, long idUsuario, String peso, String altura, String imc) {
 		this.id = id;
 		this.idUsuario = idUsuario;
 		this.peso = peso;
@@ -18,7 +17,6 @@ public class AvaliacaoFisica {
 	}
 
 	public AvaliacaoFisica() {
-
 	}
 
 	public long getId() {
@@ -37,27 +35,27 @@ public class AvaliacaoFisica {
 		this.idUsuario = idUsuario;
 	}
 
-	public byte[] getPeso() {
+	public String getPeso() {
 		return peso;
 	}
 
-	public void setPeso(byte[] peso) {
+	public void setPeso(String peso) {
 		this.peso = peso;
 	}
 
-	public byte[] getAltura() {
+	public String getAltura() {
 		return altura;
 	}
 
-	public void setAltura(byte[] altura) {
+	public void setAltura(String altura) {
 		this.altura = altura;
 	}
 
-	public byte[] getImc() {
+	public String getImc() {
 		return imc;
 	}
 
-	public void setImc(byte[] imc) {
+	public void setImc(String imc) {
 		this.imc = imc;
 	}
 }

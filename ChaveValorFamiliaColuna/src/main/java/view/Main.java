@@ -63,7 +63,7 @@ public class Main {
                         long idUsuario = scanner.nextLong();
                         scanner.nextLine();
 
-                        UsuarioDTO usuarioExistente = usuarioController.obterUsuario(new UsuarioDTO(idUsuario, new byte[0], new byte[0], new byte[0]));
+                        UsuarioDTO usuarioExistente = usuarioController.obterUsuario(new UsuarioDTO(idUsuario));
 
                         if (usuarioExistente != null) {
                             System.out.println("Erro: Já existe um usuário com esse ID.");
@@ -77,7 +77,7 @@ public class Main {
                         System.out.println("Digite a senha do Usuário:");
                         String senhaUsuario = scanner.nextLine();
 
-                        UsuarioDTO usuarioDTO = new UsuarioDTO(idUsuario, nomeUsuario.getBytes(), emailUsuario.getBytes(), senhaUsuario.getBytes());
+                        UsuarioDTO usuarioDTO = new UsuarioDTO(idUsuario, nomeUsuario, emailUsuario, senhaUsuario);
 
                         usuarioController.adicionarUsuario(usuarioDTO);
                         System.out.println("Usuário adicionado com sucesso.");
@@ -87,10 +87,10 @@ public class Main {
                         System.out.println("Digite o id do Usuário a ser buscado:");
                         long idObterUsuario = scanner.nextLong();
                         scanner.nextLine();  
-                        UsuarioDTO usuarioDTOGet = new UsuarioDTO(idObterUsuario, new byte[0], new byte[0], new byte[0]);
+                        UsuarioDTO usuarioDTOGet = new UsuarioDTO(idObterUsuario);
                         UsuarioDTO usuario = usuarioController.obterUsuario(usuarioDTOGet);
                         if (usuario != null) {
-                            System.out.println("Usuário encontrado: Nome: " + new String(usuario.getNome()));
+                            System.out.println("Usuário encontrado: Nome: " + usuario.getNome());
                         } else {
                             System.out.println("Usuário não encontrado.");
                         }
@@ -100,7 +100,7 @@ public class Main {
                         System.out.println("Digite o id do Usuário a ser excluído:");
                         long idExcluirUsuario = scanner.nextLong();
                         scanner.nextLine();
-                        UsuarioDTO usuarioExcluir = new UsuarioDTO(idExcluirUsuario, new byte[0], new byte[0], new byte[0]);
+                        UsuarioDTO usuarioExcluir = new UsuarioDTO(idExcluirUsuario);
                         UsuarioDTO usuarioEncontrado = usuarioController.obterUsuario(usuarioExcluir);
                         if (usuarioEncontrado != null) {
                             usuarioController.removerUsuario(usuarioExcluir);
@@ -132,10 +132,10 @@ public class Main {
                         System.out.println("Digite as calorias queimadas no exercício:");
                         String caloriasQueimadas = scanner.nextLine(); 
 
-                        UsuarioDTO usuarioAssociado = usuarioController.obterUsuario(new UsuarioDTO(idUsuarioExercicio, new byte[0], new byte[0], new byte[0]));
+                        UsuarioDTO usuarioAssociado = usuarioController.obterUsuario(new UsuarioDTO(idUsuarioExercicio));
 
                         if (usuarioAssociado != null) {
-                            ExercicioDTO exercicioDTO = new ExercicioDTO(idExercicio, idUsuarioExercicio, tipoExercicio.getBytes(), duracao.getBytes(), caloriasQueimadas.getBytes());
+                            ExercicioDTO exercicioDTO = new ExercicioDTO(idExercicio, idUsuarioExercicio, tipoExercicio, duracao, caloriasQueimadas);
                             exercicioController.adicionarExercicio(exercicioDTO);
                             System.out.println("Exercício adicionado com sucesso.");
                         } else {
@@ -153,9 +153,9 @@ public class Main {
 
                         if (exercicio != null) {
                             System.out.println("Exercício encontrado: ");
-                            System.out.println("Tipo: " + new String(exercicio.getTipoExercicio()));
-                            System.out.println("Duração: " + new String(exercicio.getDuracao()) + " minutos");
-                            System.out.println("Calorias queimadas: " + new String(exercicio.getCaloriasQueimadas()));
+                            System.out.println("Tipo: " + exercicio.getTipoExercicio());
+                            System.out.println("Duração: " + exercicio.getDuracao() + " minutos");
+                            System.out.println("Calorias queimadas: " + exercicio.getCaloriasQueimadas());
                         } else {
                             System.out.println("Exercício não encontrado.");
                         }
@@ -191,6 +191,7 @@ public class Main {
                         long idUsuarioAvaliacao = scanner.nextLong();
                         scanner.nextLine();
                      
+
                         System.out.println("Digite o peso do Usuário:");
                         String pesoString = scanner.nextLine();  
                         double peso = Double.parseDouble(pesoString); 
@@ -202,10 +203,10 @@ public class Main {
                         double imc = peso / (altura * altura);  
                         String imcString = String.valueOf(imc); 
                        
-                        UsuarioDTO usuarioAvaliacao = usuarioController.obterUsuario(new UsuarioDTO(idUsuarioAvaliacao, new byte[0], new byte[0], new byte[0]));
+                        UsuarioDTO usuarioAvaliacao = usuarioController.obterUsuario(new UsuarioDTO(idUsuarioAvaliacao));
 
                         if (usuarioAvaliacao != null) {
-                            AvaliacaoFisicaDTO avaliacaoDTO = new AvaliacaoFisicaDTO(idAvaliacao, idUsuarioAvaliacao, pesoString.getBytes(), alturaString.getBytes(), imcString.getBytes());
+                            AvaliacaoFisicaDTO avaliacaoDTO = new AvaliacaoFisicaDTO(idAvaliacao, idUsuarioAvaliacao, pesoString, alturaString, imcString);
                             avaliacaoFisicaController.adicionarAvaliacao(avaliacaoDTO);
                             System.out.println("Avaliação Física adicionada com sucesso.");
                         } else {
@@ -223,9 +224,9 @@ public class Main {
 
                         if (avaliacao != null) {
                             System.out.println("Avaliação Física encontrada:");
-                            System.out.println("Peso: " + new String(avaliacao.getPeso()));
-                            System.out.println("Altura: " + new String(avaliacao.getAltura()));
-                            double imcConversao = Double.parseDouble(new String(avaliacao.getImc()));
+                            System.out.println("Peso: " + avaliacao.getPeso());
+                            System.out.println("Altura: " + avaliacao.getAltura());
+                            double imcConversao = Double.parseDouble(avaliacao.getImc());
                             System.out.printf("IMC: %.2f%n", imcConversao);
                         } else {
                             System.out.println("Avaliação Física não encontrada.");
@@ -245,24 +246,20 @@ public class Main {
                             System.out.println("Erro: ID não encontrado.");
                         }
                         break;
-
                     case "10":
                         System.out.println("Saindo...");
                         break;
-
                     default:
                         System.out.println("Opção inválida. Tente novamente.");
+                        break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Entrada inválida. Tente novamente.");
-                scanner.nextLine();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Entrada inválida.");
+                scanner.nextLine(); 
+            } catch (Exception e) {
+                System.out.println("Ocorreu um erro: " + e.getMessage());
             }
         }
-
         scanner.close();
     }
 }

@@ -24,4 +24,10 @@ public class ConexaoRedis {
     public static Jedis getConexao() {
         return jedis;
     }
+    
+    protected Jedis getJedis() {
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
+        jedis.auth("senha");
+        return jedis;
+    }
 }

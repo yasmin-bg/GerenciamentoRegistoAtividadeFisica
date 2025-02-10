@@ -13,6 +13,9 @@ public class Serializador {
     }
 
     public static <T> T desserializar(byte[] dados, Class<T> classe) throws IOException, ClassNotFoundException {
+        if (dados == null) {
+            return null;
+        }
         try (ByteArrayInputStream bis = new ByteArrayInputStream(dados);
              ObjectInputStream ois = new ObjectInputStream(bis)) {
             return classe.cast(ois.readObject());
