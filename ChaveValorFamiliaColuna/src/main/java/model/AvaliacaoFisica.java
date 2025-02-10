@@ -4,11 +4,12 @@ public class AvaliacaoFisica {
 	
     private long id;
     private long idUsuario;
-    private double peso;
-    private double altura;
-    private double imc;
-
-    public AvaliacaoFisica(long id, long idUsuario, double peso, double altura, double imc) {
+    private byte[] peso;
+    private byte[] altura;
+    private byte[] imc;
+    
+	public AvaliacaoFisica(long id, long idUsuario, byte[] peso, byte[] altura, byte[] imc) {
+		super();
 		this.id = id;
 		this.idUsuario = idUsuario;
 		this.peso = peso;
@@ -16,47 +17,47 @@ public class AvaliacaoFisica {
 		this.imc = imc;
 	}
 
-    public AvaliacaoFisica() {
-		
+	public AvaliacaoFisica() {
+
 	}
 
 	public long getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public long getIdUsuario() {
-        return idUsuario;
-    }
+	public long getIdUsuario() {
+		return idUsuario;
+	}
 
-    public void setIdUsuario(long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 
-    public double getPeso() {
-        return peso;
-    }
+	public byte[] getPeso() {
+		return peso;
+	}
 
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
+	public void setPeso(byte[] peso) {
+		this.peso = peso;
+	}
 
-    public double getAltura() {
-        return altura;
-    }
+	public byte[] getAltura() {
+		return altura;
+	}
 
-    public void setAltura(double altura) {
-        this.altura = altura;
-    }
+	public void setAltura(byte[] altura) {
+		this.altura = altura;
+	}
 
-    public double getImc() {
-        return imc;
-    }
+	public byte[] getImc() {
+		return imc;
+	}
 
-    public void setImc(double imc) {
-        this.imc = imc;
-    }
+	public void setImc(byte[] imc) {
+		this.imc = imc;
+	}
 }

@@ -7,61 +7,62 @@ public class ExercicioDTO implements Serializable {
     private long id;
     private long idUsuario;
     private byte[] tipoExercicio;  
-    private int duracao;
-    private int caloriasQueimadas;
+    private byte[] duracao;
+    private byte[] caloriasQueimadas;
+    
+	public ExercicioDTO(long id, long idUsuario, byte[] tipoExercicio, byte[] duracao, byte[] caloriasQueimadas) {
+		this.id = id;
+		this.idUsuario = idUsuario;
+		this.tipoExercicio = tipoExercicio;
+		this.duracao = duracao;
+		this.caloriasQueimadas = caloriasQueimadas;
+	}
 
-    public ExercicioDTO(long id, long idUsuario, byte[] tipoExercicio, int duracao, int caloriasQueimadas) {
-        this.id = id;
-        this.idUsuario = idUsuario;
-        this.tipoExercicio = tipoExercicio;
-        this.duracao = duracao;
-        this.caloriasQueimadas = caloriasQueimadas;
-    }
+	public ExercicioDTO() {
+	
+	}
 
-    public ExercicioDTO(long id) {
-        this.id = id;
-    }
+	public ExercicioDTO(long id) {
+		this.id = id;
+	}
+	
+	public long getId() {
+		return id;
+	}
 
-    public ExercicioDTO() {
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public long getId() {
-        return id;
-    }
+	public long getIdUsuario() {
+		return idUsuario;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 
-    public long getIdUsuario() {
-        return idUsuario;
-    }
+	public byte[] getTipoExercicio() {
+		return tipoExercicio;
+	}
 
-    public void setIdUsuario(long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
+	public void setTipoExercicio(byte[] tipoExercicio) {
+		this.tipoExercicio = tipoExercicio;
+	}
 
-    public byte[] getTipoExercicio() {
-        return tipoExercicio;
-    }
+	public byte[] getDuracao() {
+		return duracao;
+	}
 
-    public void setTipoExercicio(byte[] tipoExercicio) {
-        this.tipoExercicio = tipoExercicio;
-    }
+	public void setDuracao(byte[] duracao) {
+		this.duracao = duracao;
+	}
 
-    public int getDuracao() {
-        return duracao;
-    }
+	public byte[] getCaloriasQueimadas() {
+		return caloriasQueimadas;
+	}
 
-    public void setDuracao(int duracao) {
-        this.duracao = duracao;
-    }
-
-    public int getCaloriasQueimadas() {
-        return caloriasQueimadas;
-    }
-
-    public void setCaloriasQueimadas(int caloriasQueimadas) {
-        this.caloriasQueimadas = caloriasQueimadas;
-    }
+	public void setCaloriasQueimadas(byte[] caloriasQueimadas) {
+		this.caloriasQueimadas = caloriasQueimadas;
+	}   
 }

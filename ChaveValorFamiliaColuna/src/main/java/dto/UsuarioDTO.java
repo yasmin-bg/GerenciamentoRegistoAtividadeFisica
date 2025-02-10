@@ -15,13 +15,15 @@ public class UsuarioDTO implements Serializable {
         this.email = email;
         this.senha = senha;
     }
-
+    
+    public UsuarioDTO() {
+    	
+    }
+    
     public UsuarioDTO(long id) {
         this.id = id;
     }
 
-    public UsuarioDTO() {
-    }
 
     public long getId() {
         return id;

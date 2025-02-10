@@ -25,4 +25,9 @@ public class ExercicioDAO implements IExercicioDAO {
         byte[] dados = jedis.hget(chave.getBytes(), "dados".getBytes());
         return (dados != null) ? Serializador.desserializar(dados, ExercicioDTO.class) : null;
     }
+    
+    public void removerExercicio(ExercicioDTO dto) {
+        String chave = "exercicio:" + dto.getId();
+        jedis.del(chave.getBytes());  
+    }
 }

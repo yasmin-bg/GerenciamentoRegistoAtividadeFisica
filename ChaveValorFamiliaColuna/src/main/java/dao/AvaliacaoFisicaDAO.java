@@ -25,4 +25,9 @@ public class AvaliacaoFisicaDAO implements IAvaliacaoFisicaDAO {
         byte[] dados = jedis.hget(chave.getBytes(), "dados".getBytes());
         return (dados != null) ? Serializador.desserializar(dados, AvaliacaoFisicaDTO.class) : null;
     }
+    
+    public void removerAvaliacao(AvaliacaoFisicaDTO dto) {
+        String chave = "avaliacao:" + dto.getId();
+        jedis.del(chave.getBytes());  
+    }
 }
