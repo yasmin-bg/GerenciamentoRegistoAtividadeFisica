@@ -1,50 +1,67 @@
 package dto;
 
-public class AvaliacaoFisicaDTO {
-	
-    private Long id;
-    private Long idUsuario;
-    private double peso;
-    private double altura;
-    private double imc;
+import java.io.Serializable;
 
-    public Long getId() {
-        return id;
+public class AvaliacaoFisicaDTO implements Serializable {
+
+    private long id;
+    private long idUsuario;
+    private String peso;
+    private String altura;
+    private String imc;
+
+    public AvaliacaoFisicaDTO(long id, long idUsuario, String peso, String altura, String imc) {
+        this.id = id;
+        this.idUsuario = idUsuario;
+        this.peso = peso;
+        this.altura = altura;
+        this.imc = imc;
     }
 
-    public void setId(Long id) {
+    public AvaliacaoFisicaDTO() {
+    }
+
+    public AvaliacaoFisicaDTO(long id) {
         this.id = id;
     }
 
-    public Long getIdUsuario() {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
+    public void setIdUsuario(long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public double getPeso() {
+    public String getPeso() {
         return peso;
     }
 
-    public void setPeso(double peso) {
+    public void setPeso(String peso) {
         this.peso = peso;
     }
 
-    public double getAltura() {
+    public String getAltura() {
         return altura;
     }
 
-    public void setAltura(double altura) {
+    public void setAltura(String altura) {
         this.altura = altura;
     }
 
-    public double getImc() {
+    public String getImc() {
         return imc;
     }
 
-    public void setImc(double imc) {
+    public void setImc(String imc) {
         this.imc = imc;
     }
 }

@@ -1,33 +1,28 @@
 package controller;
 
+import java.io.IOException;
+import java.util.List;
 import dao.UsuarioDAO;
 import dto.UsuarioDTO;
-import mapper.MapperUsuario;
 import model.Usuario;
 
 public class UsuarioController {
 
     private UsuarioDAO dao;
-    private MapperUsuario mapperUsuario;
 
     public UsuarioController() {
         this.dao = new UsuarioDAO();
-        this.mapperUsuario = new MapperUsuario();
     }
 
-    public void adicionarUsuario(UsuarioDTO dto) {
+    public void adicionarUsuario(UsuarioDTO dto) throws IOException {
         dao.adicionarUsuario(dto);
     }
 
-    public Usuario obterUsuario(UsuarioDTO dto) {
+    public UsuarioDTO obterUsuario(UsuarioDTO dto) throws IOException, ClassNotFoundException {
         return dao.obterUsuario(dto);
     }
-
-    public void excluirUsuario(UsuarioDTO dto) {
-        dao.excluirUsuario(dto);
-    }
-
-    public void atualizarUsuario(UsuarioDTO dto) {
-        dao.atualizarUsuario(dto);
+    
+    public void removerUsuario(UsuarioDTO dto) {
+    	dao.removerUsuario(dto);
     }
 }

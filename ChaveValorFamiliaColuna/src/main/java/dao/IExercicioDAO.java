@@ -1,12 +1,12 @@
 package dao;
 
+import java.io.IOException;
+
 import dto.ExercicioDTO;
 import model.Exercicio;
 
 public interface IExercicioDAO {
 	
-	public void adicionarExercicio(ExercicioDTO dto);
-	public Exercicio obterExercicio(ExercicioDTO dto);
-	public void excluirExercicio(ExercicioDTO dto);
-	public void atualizarExercicio(ExercicioDTO dto);
+	public void adicionarExercicio(ExercicioDTO dto) throws IOException;
+	public ExercicioDTO obterExercicio(ExercicioDTO dto) throws IOException, ClassNotFoundException;
 }

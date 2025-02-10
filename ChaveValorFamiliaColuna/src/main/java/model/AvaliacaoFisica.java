@@ -2,58 +2,60 @@ package model;
 
 public class AvaliacaoFisica {
 	
-    private Long id;
-    private Long idUsuario;
-    private Double peso;
-    private Double altura;
-    private Double imc;
-    private String data;
+    private long id;
+    private long idUsuario;
+    private String peso;
+    private String altura;
+    private String imc;
+    
+	public AvaliacaoFisica(long id, long idUsuario, String peso, String altura, String imc) {
+		this.id = id;
+		this.idUsuario = idUsuario;
+		this.peso = peso;
+		this.altura = altura;
+		this.imc = imc;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public AvaliacaoFisica() {
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setIdUsuario(Long usuarioId) {
-        this.idUsuario = usuarioId;
-    }
+	public long getIdUsuario() {
+		return idUsuario;
+	}
 
-    public Double getPeso() {
-        return peso;
-    }
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 
-    public void setPeso(Double peso) {
-        this.peso = peso;
-    }
+	public String getPeso() {
+		return peso;
+	}
 
-    public Double getAltura() {
-        return altura;
-    }
+	public void setPeso(String peso) {
+		this.peso = peso;
+	}
 
-    public void setAltura(Double altura) {
-        this.altura = altura;
-    }
+	public String getAltura() {
+		return altura;
+	}
 
-    public Double getImc() {
-        return imc;
-    }
+	public void setAltura(String altura) {
+		this.altura = altura;
+	}
 
-    public void setImc(Double imc) {
-        this.imc = imc;
-    }
+	public String getImc() {
+		return imc;
+	}
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
+	public void setImc(String imc) {
+		this.imc = imc;
+	}
 }

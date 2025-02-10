@@ -3,50 +3,60 @@ package model;
 public class Exercicio {
 	
     private long id;
-    private String tipoExercicio;
-    private int duracao; 
-    private int caloriasQueimadas;
-
-    public Exercicio(long id, String tipoExercicio, int duracao, int caloriasQueimadas) {
-        this.id = id;
-        this.tipoExercicio = tipoExercicio;
-        this.duracao = duracao;
-        this.caloriasQueimadas = caloriasQueimadas;
-    }
+    private long idUsuario;
+    private String tipoExercicio; 
+    private String duracao; 
+    private String caloriasQueimadas;
     
-    public Exercicio() {
-    	
-    }
+	public Exercicio(long id, long idUsuario, String tipoExercicio, String duracao, String caloriasQueimadas) {
+		this.id = id;
+		this.idUsuario = idUsuario;
+		this.tipoExercicio = tipoExercicio;
+		this.duracao = duracao;
+		this.caloriasQueimadas = caloriasQueimadas;
+	}
 
-    public long getId() {
-        return id;
-    }
+	public Exercicio() {
+		
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public String getTipoExercicio() {
-        return tipoExercicio;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setTipoExercicio(String tipoExercicio) {
-        this.tipoExercicio = tipoExercicio;
-    }
+	public long getIdUsuario() {
+		return idUsuario;
+	}
 
-    public int getDuracao() {
-        return duracao;
-    }
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 
-    public void setDuracao(int duracao) {
-        this.duracao = duracao;
-    }
+	public String getTipoExercicio() {
+		return tipoExercicio;
+	}
 
-    public int getCaloriasQueimadas() {
-        return caloriasQueimadas;
-    }
+	public void setTipoExercicio(String tipoExercicio) {
+		this.tipoExercicio = tipoExercicio;
+	}
 
-    public void setCaloriasQueimadas(int caloriasQueimadas) {
-        this.caloriasQueimadas = caloriasQueimadas;
-    }
+	public String getDuracao() {
+		return duracao;
+	}
+
+	public void setDuracao(String duracao) {
+		this.duracao = duracao;
+	}
+
+	public String getCaloriasQueimadas() {
+		return caloriasQueimadas;
+	}
+
+	public void setCaloriasQueimadas(String caloriasQueimadas) {
+		this.caloriasQueimadas = caloriasQueimadas;
+	}
 }

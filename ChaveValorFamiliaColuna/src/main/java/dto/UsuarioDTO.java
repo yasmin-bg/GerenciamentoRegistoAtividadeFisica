@@ -1,16 +1,33 @@
 package dto;
 
-public class UsuarioDTO {
-    private Long id;
-    private String nome;
-    private String email;
-    private String senha;
+import java.io.Serializable;
 
-    public Long getId() {
+public class UsuarioDTO implements Serializable {
+
+    private long id;
+    private String nome;  
+    private String email; 
+    private String senha; 
+
+    public UsuarioDTO(long id, String nome, String email, String senha) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+    }
+    
+    public UsuarioDTO() {
+    }
+    
+    public UsuarioDTO(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

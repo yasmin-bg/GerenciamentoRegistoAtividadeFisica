@@ -1,33 +1,32 @@
 package controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import dao.AvaliacaoFisicaDAO;
 import dto.AvaliacaoFisicaDTO;
+import dto.ExercicioDTO;
 import mapper.MapperAvaliacaoFisica;
 import model.AvaliacaoFisica;
 
 public class AvaliacaoFisicaController {
 
     private AvaliacaoFisicaDAO dao;
-    private MapperAvaliacaoFisica mapperAvaliacaoFisica;
 
     public AvaliacaoFisicaController() {
         this.dao = new AvaliacaoFisicaDAO();
-        this.mapperAvaliacaoFisica = new MapperAvaliacaoFisica();
     }
 
-    public void adicionarAvaliacao(AvaliacaoFisicaDTO dto) {
+    public void adicionarAvaliacao(AvaliacaoFisicaDTO dto) throws IOException {
         dao.adicionarAvaliacao(dto);
     }
 
-    public AvaliacaoFisica obterAvaliacao(AvaliacaoFisicaDTO dto) {
+
+    public AvaliacaoFisicaDTO obterAvaliacao(AvaliacaoFisicaDTO dto) throws IOException, ClassNotFoundException {
     	return dao.obterAvaliacao(dto);
     }
-
-    public void atualizarAvaliacao(AvaliacaoFisicaDTO dto) {
-        dao.atualizarAvaliacao(dto);
-    }
-
-    public void excluirAvaliacao(AvaliacaoFisicaDTO dto) {
-    	dao.excluirAvaliacao(dto);
+    
+    public void removerAvaliacao(AvaliacaoFisicaDTO dto) {
+    	dao.removerAvaliacao(dto);
     }
 }

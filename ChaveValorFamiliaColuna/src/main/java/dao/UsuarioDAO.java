@@ -1,45 +1,35 @@
 package dao;
 
 import dto.UsuarioDTO;
-import mapper.MapperUsuario;
-import model.Usuario;
 import redis.clients.jedis.Jedis;
+import util.Serializador;
+import java.io.IOException;
 
-public class UsuarioDAO implements IUsuarioDAO {
+public class UsuarioDAO extends ConexaoRedis implements IUsuarioDAO {
 
-    private Jedis jedis;
-    private MapperUsuario mapperUsuario;
-
-    public UsuarioDAO() {
-    	this.jedis = new Jedis("127.0.0.1", 6379);
-        jedis.auth("senha");
-        this.mapperUsuario = new MapperUsuario();
-    }
-
-    public void adicionarUsuario(UsuarioDTO dto) {
-        String chave = String.valueOf(dto.getId());
-        String valor = mapperUsuario.toJson(dto); 
-        jedis.set(chave, valor);
-    }
-
-    public Usuario obterUsuario(UsuarioDTO dto) {
-        String chave = String.valueOf(dto.getId());
-        String usuarioJson = jedis.get(chave);  
-        if (usuarioJson != null) {
-            UsuarioDTO usuarioDTO = mapperUsuario.fromJson(usuarioJson);
-            return mapperUsuario.toEntity(usuarioDTO);
+    public void adicionarUsuario(UsuarioDTO dto) throws IOException {
+        String chave = "usuario:" + dto.getId();
+        byte[] dadosSerializados = Serializador.serializar(dto);
+        
+        try (Jedis jedis = getJedis()) {
+            jedis.set(chave.getBytes(), dadosSerializados); 
         }
-        return null;
     }
 
-    public void excluirUsuario(UsuarioDTO dto) {
-        String chave = String.valueOf(dto.getId());
-        jedis.del(chave);  
+    public UsuarioDTO obterUsuario(UsuarioDTO dto) throws IOException, ClassNotFoundException {
+        String chave = "usuario:" + dto.getId();
+        
+        try (Jedis jedis = getJedis()) {
+            byte[] dados = jedis.get(chave.getBytes()); 
+            return (dados != null) ? Serializador.desserializar(dados, UsuarioDTO.class) : null;
+        }
     }
-
-    public void atualizarUsuario(UsuarioDTO dto) {
-        String chave = String.valueOf(dto.getId());
-        String valor = mapperUsuario.toJson(dto); 
-        jedis.set(chave, valor);
+    
+    public void removerUsuario(UsuarioDTO dto) {
+        String chave = "usuario:" + dto.getId();
+        
+        try (Jedis jedis = getJedis()) {
+            jedis.del(chave.getBytes());  
+        }
     }
 }
