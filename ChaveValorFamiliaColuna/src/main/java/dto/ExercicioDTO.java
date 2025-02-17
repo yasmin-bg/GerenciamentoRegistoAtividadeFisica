@@ -1,16 +1,21 @@
 package dto;
 
-public class ExercicioDTO {
+import java.io.Serializable;
+
+public class ExercicioDTO implements Serializable {
 
     private long id;
-    private String tipoExercicio;
+    private long idUsuario;
+
+	private String tipoExercicio;
     
 	public ExercicioDTO() {
 	
 	}
 
-	public ExercicioDTO(long id, String tipoExercicio) {
+	public ExercicioDTO(long id, long idUsuario, String tipoExercicio) {
 		this.id = id;
+		this.idUsuario = idUsuario;
 		this.tipoExercicio = tipoExercicio;
 	}
 
@@ -25,6 +30,14 @@ public class ExercicioDTO {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public long getIdUsuario() {
+		return idUsuario;
+	}
+	
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getTipoExercicio() {

@@ -2,33 +2,34 @@ package dao;
 
 import dto.UsuarioDTO;
 import redis.clients.jedis.Jedis;
+import util.Serializador;
 import java.io.IOException;
 
 public class UsuarioDAO extends ConexaoRedis implements IUsuarioDAO {
 
     public void adicionarUsuario(UsuarioDTO dto) throws IOException {
         String chave = "usuario:" + dto.getId();
-        String valor = dto.getNome();
+        byte[] dadosSerializados = Serializador.serializar(dto);
         
         try (Jedis jedis = getJedis()) {
-            jedis.set(chave, valor); 
+            jedis.set(chave.getBytes(), dadosSerializados); 
         }
     }
 
-    public UsuarioDTO obterUsuario(UsuarioDTO dto) throws IOException {
+    public UsuarioDTO obterUsuario(UsuarioDTO dto) throws IOException, ClassNotFoundException {
         String chave = "usuario:" + dto.getId();
         
         try (Jedis jedis = getJedis()) {
-            String valor = jedis.get(chave); 
-            return valor != null ? new UsuarioDTO(dto.getId(), valor) : null; 
+            byte[] dados = jedis.get(chave.getBytes()); 
+            return (dados != null) ? Serializador.desserializar(dados, UsuarioDTO.class) : null;
         }
     }
-
+    
     public void removerUsuario(UsuarioDTO dto) {
         String chave = "usuario:" + dto.getId();
         
         try (Jedis jedis = getJedis()) {
-            jedis.del(chave); 
+            jedis.del(chave.getBytes());  
         }
     }
 }
