@@ -2,34 +2,33 @@ package dao;
 
 import dto.ExercicioDTO;
 import redis.clients.jedis.Jedis;
-import util.Serializador;
 import java.io.IOException;
 
 public class ExercicioDAO extends ConexaoRedis implements IExercicioDAO {
 
     public void adicionarExercicio(ExercicioDTO dto) throws IOException {
         String chave = "exercicio:" + dto.getId();
-        byte[] dadosSerializados = Serializador.serializar(dto);
+        String valor = dto.getTipoExercicio();
         
         try (Jedis jedis = getJedis()) {
-            jedis.set(chave.getBytes(), dadosSerializados);
+            jedis.set(chave, valor); 
         }
     }
 
-    public ExercicioDTO obterExercicio(ExercicioDTO dto) throws IOException, ClassNotFoundException {
+    public ExercicioDTO obterExercicio(ExercicioDTO dto) throws IOException {
         String chave = "exercicio:" + dto.getId();
         
         try (Jedis jedis = getJedis()) {
-            byte[] dados = jedis.get(chave.getBytes()); 
-            return (dados != null) ? Serializador.desserializar(dados, ExercicioDTO.class) : null;
+            String valor = jedis.get(chave); 
+            return valor != null ? new ExercicioDTO(dto.getId(), valor) : null; 
         }
     }
-    
+
     public void removerExercicio(ExercicioDTO dto) {
         String chave = "exercicio:" + dto.getId();
         
         try (Jedis jedis = getJedis()) {
-            jedis.del(chave.getBytes()); 
+            jedis.del(chave);
         }
     }
 }
