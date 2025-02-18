@@ -1,3 +1,7 @@
 /META-INF/
-/view/
+/model/
 /dao/
+/dto/
+/view/
+/controller/
+/util/

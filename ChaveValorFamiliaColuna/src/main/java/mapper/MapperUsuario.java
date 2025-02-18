@@ -9,8 +9,6 @@ public class MapperUsuario {
         UsuarioDTO dto = new UsuarioDTO();
         dto.setId(usuario.getId());
         dto.setNome(usuario.getNome());
-        dto.setEmail(usuario.getEmail());
-        dto.setSenha(usuario.getSenha());
         return dto;
     }
 
@@ -18,8 +16,6 @@ public class MapperUsuario {
         Usuario entity = new Usuario();
         entity.setId(dto.getId());
         entity.setNome(dto.getNome());
-        entity.setEmail(dto.getEmail());
-        entity.setSenha(dto.getSenha());
         return entity;
     }
 }

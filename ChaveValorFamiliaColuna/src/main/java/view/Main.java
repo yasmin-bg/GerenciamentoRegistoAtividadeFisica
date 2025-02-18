@@ -1,28 +1,26 @@
 package view;
 
-import dto.AvaliacaoFisicaDTO;
-import dto.ExercicioDTO;
-import dto.UsuarioDTO;
-import controller.AvaliacaoFisicaController;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
 import controller.ExercicioController;
 import controller.UsuarioController;
-import java.io.IOException;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import dto.ExercicioDTO;
+import dto.UsuarioDTO;
 
 public class Main {
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
 
         UsuarioController usuarioController = new UsuarioController();
-        AvaliacaoFisicaController avaliacaoFisicaController = new AvaliacaoFisicaController();
         ExercicioController exercicioController = new ExercicioController();
 
         String escolha = "";
 
-        while (!escolha.equals("10")) { 
+        while (!escolha.equals("7")) {
             System.out.println("--------------------------------------------");
             System.out.println("Selecione uma opção:");
             System.out.println("--------------------------------------------");
@@ -31,27 +29,16 @@ public class Main {
             System.out.println("1. Adicionar Usuário");
             System.out.println("2. Buscar Usuário");
             System.out.println("3. Excluir Usuário"); 
-
             System.out.println("--------------------------------------------");
-
+            
             System.out.println("Exercício");
-
             System.out.println("4. Adicionar Exercício");
             System.out.println("5. Buscar Exercício");
             System.out.println("6. Excluir Exercício"); 
-
+            System.out.println("7. Adicionar Usuario no Exercicio");
             System.out.println("--------------------------------------------");
-
-            System.out.println("Avaliação Física");
-
-            System.out.println("7. Adicionar Avaliação Física");
-            System.out.println("8. Buscar Avaliação Física");
-            System.out.println("9. Excluir Avaliação Física");
-
-            System.out.println("--------------------------------------------");
-
-            System.out.println("10. Sair");
-
+            
+            System.out.println("8. Sair");
             System.out.println("--------------------------------------------");
 
             escolha = scanner.nextLine();
@@ -64,7 +51,6 @@ public class Main {
                         scanner.nextLine();
 
                         UsuarioDTO usuarioExistente = usuarioController.obterUsuario(new UsuarioDTO(idUsuario));
-
                         if (usuarioExistente != null) {
                             System.out.println("Erro: Já existe um usuário com esse ID.");
                             break;
@@ -72,13 +58,8 @@ public class Main {
 
                         System.out.println("Digite o nome do Usuário:");
                         String nomeUsuario = scanner.nextLine();
-                        System.out.println("Digite o email do Usuário:");
-                        String emailUsuario = scanner.nextLine();
-                        System.out.println("Digite a senha do Usuário:");
-                        String senhaUsuario = scanner.nextLine();
 
-                        UsuarioDTO usuarioDTO = new UsuarioDTO(idUsuario, nomeUsuario, emailUsuario, senhaUsuario);
-
+                        UsuarioDTO usuarioDTO = new UsuarioDTO(idUsuario, nomeUsuario);
                         usuarioController.adicionarUsuario(usuarioDTO);
                         System.out.println("Usuário adicionado com sucesso.");
                         break;
@@ -86,9 +67,9 @@ public class Main {
                     case "2":
                         System.out.println("Digite o id do Usuário a ser buscado:");
                         long idObterUsuario = scanner.nextLong();
-                        scanner.nextLine();  
-                        UsuarioDTO usuarioDTOGet = new UsuarioDTO(idObterUsuario);
-                        UsuarioDTO usuario = usuarioController.obterUsuario(usuarioDTOGet);
+                        scanner.nextLine();
+                        
+                        UsuarioDTO usuario = usuarioController.obterUsuario(new UsuarioDTO(idObterUsuario));
                         if (usuario != null) {
                             System.out.println("Usuário encontrado: Nome: " + usuario.getNome());
                         } else {
@@ -100,6 +81,7 @@ public class Main {
                         System.out.println("Digite o id do Usuário a ser excluído:");
                         long idExcluirUsuario = scanner.nextLong();
                         scanner.nextLine();
+                        
                         UsuarioDTO usuarioExcluir = new UsuarioDTO(idExcluirUsuario);
                         UsuarioDTO usuarioEncontrado = usuarioController.obterUsuario(usuarioExcluir);
                         if (usuarioEncontrado != null) {
@@ -116,31 +98,18 @@ public class Main {
                         scanner.nextLine();  
 
                         ExercicioDTO exercicioExistente = exercicioController.obterExercicio(new ExercicioDTO(idExercicio));
-
                         if (exercicioExistente != null) {
                             System.out.println("Erro: Já existe um exercício com esse ID.");
                             break;
                         }
-                        
-                        System.out.println("Digite o id do Usuário associado ao exercício:");
-                        long idUsuarioExercicio = scanner.nextLong();
-                        scanner.nextLine();  
                         System.out.println("Digite o tipo de Exercício:");
                         String tipoExercicio = scanner.nextLine();
-                        System.out.println("Digite a duração do Exercício (em minutos):");
-                        String duracao = scanner.nextLine();
-                        System.out.println("Digite as calorias queimadas no exercício:");
-                        String caloriasQueimadas = scanner.nextLine(); 
-
-                        UsuarioDTO usuarioAssociado = usuarioController.obterUsuario(new UsuarioDTO(idUsuarioExercicio));
-
-                        if (usuarioAssociado != null) {
-                            ExercicioDTO exercicioDTO = new ExercicioDTO(idExercicio, idUsuarioExercicio, tipoExercicio, duracao, caloriasQueimadas);
-                            exercicioController.adicionarExercicio(exercicioDTO);
-                            System.out.println("Exercício adicionado com sucesso.");
-                        } else {
-                            System.out.println("Erro: Usuário não encontrado.");
-                        }
+                        
+                        List<Long> idUsuarioExercicio = new ArrayList<>();
+                        ExercicioDTO exercicioDTO = new ExercicioDTO(idExercicio, idUsuarioExercicio, tipoExercicio);
+                        exercicioController.adicionarExercicio(exercicioDTO);
+                        System.out.println("Exercício adicionado com sucesso.");
+                       
                         break;
 
                     case "5":
@@ -148,14 +117,13 @@ public class Main {
                         long idObterExercicio = scanner.nextLong();
                         scanner.nextLine();  
 
-                        ExercicioDTO exercicioDTOGet = new ExercicioDTO(idObterExercicio);
-                        ExercicioDTO exercicio = exercicioController.obterExercicio(exercicioDTOGet);
-
+                        ExercicioDTO exercicio = exercicioController.obterExercicio(new ExercicioDTO(idObterExercicio));
                         if (exercicio != null) {
                             System.out.println("Exercício encontrado: ");
                             System.out.println("Tipo: " + exercicio.getTipoExercicio());
-                            System.out.println("Duração: " + exercicio.getDuracao() + " minutos");
-                            System.out.println("Calorias queimadas: " + exercicio.getCaloriasQueimadas());
+                            for(long idUsuarioDoExercicio: exercicio.getIdUsuario()) {
+                            	System.out.println("Usuario: " + idUsuarioDoExercicio);
+                            }
                         } else {
                             System.out.println("Exercício não encontrado.");
                         }
@@ -165,6 +133,7 @@ public class Main {
                         System.out.println("Digite o id do Exercício a ser excluído:");
                         long idExcluirExercicio = scanner.nextLong();
                         scanner.nextLine();
+                        
                         ExercicioDTO exercicioExcluir = new ExercicioDTO(idExcluirExercicio);
                         ExercicioDTO exercicioEncontrado = exercicioController.obterExercicio(exercicioExcluir);
                         if (exercicioEncontrado != null) {
@@ -174,79 +143,32 @@ public class Main {
                             System.out.println("Erro: ID não encontrado.");
                         }
                         break;
-                    	
+                    
                     case "7":
-                        System.out.println("Digite o id da Avaliação Física:");
-                        long idAvaliacao = scanner.nextLong();
+                    	System.out.println("Digite o id do Usuário associado ao exercício:");
+                        long idUsuarioInformado = scanner.nextLong();
+                        scanner.nextLine();  
+                        
+                        
+                        UsuarioDTO usuarioAssociado = usuarioController.obterUsuario(new UsuarioDTO(idUsuarioInformado));
+                        System.out.println("Digite o id do Exercício a ser buscado:");
+                        long idExercicioInformado = scanner.nextLong();
                         scanner.nextLine();  
 
-                        AvaliacaoFisicaDTO avaliacaoExistente = avaliacaoFisicaController.obterAvaliacao(new AvaliacaoFisicaDTO(idAvaliacao));
-
-                        if (avaliacaoExistente != null) {
-                            System.out.println("Erro: Já existe uma avaliação física com esse ID.");
-                            break;
+                        ExercicioDTO exercicioInformado = exercicioController.obterExercicio(new ExercicioDTO(idExercicioInformado));
+                        if (exercicioInformado != null) {
+                            System.out.println("Exercício encontrado: ");
+                            System.out.println("Tipo: " + exercicioInformado.getTipoExercicio());
+                        } else {
+                            System.out.println("Exercício não encontrado.");
                         }
-
-                        System.out.println("Digite o id do Usuário associado a Avaliacao Fisica:");
-                        long idUsuarioAvaliacao = scanner.nextLong();
-                        scanner.nextLine();
+                        
+                        exercicioInformado.getIdUsuario().add(usuarioAssociado.getId());
+                        exercicioController.adicionarExercicio(exercicioInformado);
+                        
+                        break;
                      
-
-                        System.out.println("Digite o peso do Usuário:");
-                        String pesoString = scanner.nextLine();  
-                        double peso = Double.parseDouble(pesoString); 
-
-                        System.out.println("Digite a altura do Usuário:");
-                        String alturaString = scanner.nextLine();  
-                        double altura = Double.parseDouble(alturaString); 
-
-                        double imc = peso / (altura * altura);  
-                        String imcString = String.valueOf(imc); 
-                       
-                        UsuarioDTO usuarioAvaliacao = usuarioController.obterUsuario(new UsuarioDTO(idUsuarioAvaliacao));
-
-                        if (usuarioAvaliacao != null) {
-                            AvaliacaoFisicaDTO avaliacaoDTO = new AvaliacaoFisicaDTO(idAvaliacao, idUsuarioAvaliacao, pesoString, alturaString, imcString);
-                            avaliacaoFisicaController.adicionarAvaliacao(avaliacaoDTO);
-                            System.out.println("Avaliação Física adicionada com sucesso.");
-                        } else {
-                            System.out.println("Erro: Usuário não encontrado.");
-                        }
-                        break;
-
                     case "8":
-                        System.out.println("Digite o id da Avaliação Física a ser buscada:");
-                        long idObterAvaliacao = scanner.nextLong();
-                        scanner.nextLine();  
-
-                        AvaliacaoFisicaDTO avaliacaoDTOGet = new AvaliacaoFisicaDTO(idObterAvaliacao);
-                        AvaliacaoFisicaDTO avaliacao = avaliacaoFisicaController.obterAvaliacao(avaliacaoDTOGet);
-
-                        if (avaliacao != null) {
-                            System.out.println("Avaliação Física encontrada:");
-                            System.out.println("Peso: " + avaliacao.getPeso());
-                            System.out.println("Altura: " + avaliacao.getAltura());
-                            double imcConversao = Double.parseDouble(avaliacao.getImc());
-                            System.out.printf("IMC: %.2f%n", imcConversao);
-                        } else {
-                            System.out.println("Avaliação Física não encontrada.");
-                        }
-                        break;
-
-                    case "9": 
-                        System.out.println("Digite o id da Avaliação Física a ser excluída:");
-                        long idExcluirAvaliacao = scanner.nextLong();
-                        scanner.nextLine();
-                        AvaliacaoFisicaDTO avaliacaoExcluir = new AvaliacaoFisicaDTO(idExcluirAvaliacao);
-                        AvaliacaoFisicaDTO avaliacaoEncontrada = avaliacaoFisicaController.obterAvaliacao(avaliacaoExcluir);
-                        if (avaliacaoEncontrada != null) {
-                            avaliacaoFisicaController.removerAvaliacao(avaliacaoExcluir);
-                            System.out.println("Avaliação Física excluída com sucesso.");
-                        } else {
-                            System.out.println("Erro: ID não encontrado.");
-                        }
-                        break;
-                    case "10":
                         System.out.println("Saindo...");
                         break;
                     default:

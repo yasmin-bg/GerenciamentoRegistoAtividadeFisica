@@ -1,23 +1,22 @@
 package model;
 
+import java.util.List;
+
 public class Exercicio {
 	
     private long id;
-    private long idUsuario;
-    private String tipoExercicio; 
-    private String duracao; 
-    private String caloriasQueimadas;
+    private List<Long> idUsuario;
+    private String tipoExercicio;
     
-	public Exercicio(long id, long idUsuario, String tipoExercicio, String duracao, String caloriasQueimadas) {
+	public Exercicio() {
+
+	}
+
+	public Exercicio(long id, List<Long> idUsuario, String tipoExercicio) {
+		super();
 		this.id = id;
 		this.idUsuario = idUsuario;
 		this.tipoExercicio = tipoExercicio;
-		this.duracao = duracao;
-		this.caloriasQueimadas = caloriasQueimadas;
-	}
-
-	public Exercicio() {
-		
 	}
 
 	public long getId() {
@@ -28,11 +27,11 @@ public class Exercicio {
 		this.id = id;
 	}
 
-	public long getIdUsuario() {
+	public List<Long> getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(long idUsuario) {
+	public void setIdUsuario(List<Long> idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
@@ -42,21 +41,5 @@ public class Exercicio {
 
 	public void setTipoExercicio(String tipoExercicio) {
 		this.tipoExercicio = tipoExercicio;
-	}
-
-	public String getDuracao() {
-		return duracao;
-	}
-
-	public void setDuracao(String duracao) {
-		this.duracao = duracao;
-	}
-
-	public String getCaloriasQueimadas() {
-		return caloriasQueimadas;
-	}
-
-	public void setCaloriasQueimadas(String caloriasQueimadas) {
-		this.caloriasQueimadas = caloriasQueimadas;
-	}
+	}   
 }
