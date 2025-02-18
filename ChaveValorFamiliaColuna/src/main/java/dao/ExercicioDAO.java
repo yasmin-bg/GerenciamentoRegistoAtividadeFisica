@@ -1,10 +1,9 @@
-
 package dao;
 
+import java.io.IOException;
 import dto.ExercicioDTO;
 import redis.clients.jedis.Jedis;
 import util.Serializador;
-import java.io.IOException;
 
 public class ExercicioDAO extends ConexaoRedis implements IExercicioDAO {
 

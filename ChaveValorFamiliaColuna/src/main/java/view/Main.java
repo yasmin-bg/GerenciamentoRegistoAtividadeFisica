@@ -1,11 +1,14 @@
 package view;
 
-import dto.ExercicioDTO;
-import dto.UsuarioDTO;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
 import controller.ExercicioController;
 import controller.UsuarioController;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import dto.ExercicioDTO;
+import dto.UsuarioDTO;
 
 public class Main {
 
@@ -32,9 +35,10 @@ public class Main {
             System.out.println("4. Adicionar Exercício");
             System.out.println("5. Buscar Exercício");
             System.out.println("6. Excluir Exercício"); 
+            System.out.println("7. Adicionar Usuario no Exercicio");
             System.out.println("--------------------------------------------");
             
-            System.out.println("7. Sair");
+            System.out.println("8. Sair");
             System.out.println("--------------------------------------------");
 
             escolha = scanner.nextLine();
@@ -98,21 +102,14 @@ public class Main {
                             System.out.println("Erro: Já existe um exercício com esse ID.");
                             break;
                         }
-                        
-                        System.out.println("Digite o id do Usuário associado ao exercício:");
-                        long idUsuarioExercicio = scanner.nextLong();
-                        scanner.nextLine();  
                         System.out.println("Digite o tipo de Exercício:");
                         String tipoExercicio = scanner.nextLine();
                         
-                        UsuarioDTO usuarioAssociado = usuarioController.obterUsuario(new UsuarioDTO(idUsuarioExercicio));
-                        if (usuarioAssociado != null) {
-                            ExercicioDTO exercicioDTO = new ExercicioDTO(idExercicio, idUsuarioExercicio, tipoExercicio);
-                            exercicioController.adicionarExercicio(exercicioDTO);
-                            System.out.println("Exercício adicionado com sucesso.");
-                        } else {
-                            System.out.println("Erro: Usuário não encontrado.");
-                        }
+                        List<Long> idUsuarioExercicio = new ArrayList<>();
+                        ExercicioDTO exercicioDTO = new ExercicioDTO(idExercicio, idUsuarioExercicio, tipoExercicio);
+                        exercicioController.adicionarExercicio(exercicioDTO);
+                        System.out.println("Exercício adicionado com sucesso.");
+                       
                         break;
 
                     case "5":
@@ -124,6 +121,9 @@ public class Main {
                         if (exercicio != null) {
                             System.out.println("Exercício encontrado: ");
                             System.out.println("Tipo: " + exercicio.getTipoExercicio());
+                            for(long idUsuarioDoExercicio: exercicio.getIdUsuario()) {
+                            	System.out.println("Usuario: " + idUsuarioDoExercicio);
+                            }
                         } else {
                             System.out.println("Exercício não encontrado.");
                         }
@@ -143,8 +143,32 @@ public class Main {
                             System.out.println("Erro: ID não encontrado.");
                         }
                         break;
-                     
+                    
                     case "7":
+                    	System.out.println("Digite o id do Usuário associado ao exercício:");
+                        long idUsuarioInformado = scanner.nextLong();
+                        scanner.nextLine();  
+                        
+                        
+                        UsuarioDTO usuarioAssociado = usuarioController.obterUsuario(new UsuarioDTO(idUsuarioInformado));
+                        System.out.println("Digite o id do Exercício a ser buscado:");
+                        long idExercicioInformado = scanner.nextLong();
+                        scanner.nextLine();  
+
+                        ExercicioDTO exercicioInformado = exercicioController.obterExercicio(new ExercicioDTO(idExercicioInformado));
+                        if (exercicioInformado != null) {
+                            System.out.println("Exercício encontrado: ");
+                            System.out.println("Tipo: " + exercicioInformado.getTipoExercicio());
+                        } else {
+                            System.out.println("Exercício não encontrado.");
+                        }
+                        
+                        exercicioInformado.getIdUsuario().add(usuarioAssociado.getId());
+                        exercicioController.adicionarExercicio(exercicioInformado);
+                        
+                        break;
+                     
+                    case "8":
                         System.out.println("Saindo...");
                         break;
                     default:

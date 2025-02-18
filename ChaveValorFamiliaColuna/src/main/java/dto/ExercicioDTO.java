@@ -1,11 +1,12 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ExercicioDTO implements Serializable {
 
     private long id;
-    private long idUsuario;
+    private List<Long> idUsuario;
 
 	private String tipoExercicio;
     
@@ -13,7 +14,7 @@ public class ExercicioDTO implements Serializable {
 	
 	}
 
-	public ExercicioDTO(long id, long idUsuario, String tipoExercicio) {
+	public ExercicioDTO(long id, List<Long> idUsuario, String tipoExercicio) {
 		this.id = id;
 		this.idUsuario = idUsuario;
 		this.tipoExercicio = tipoExercicio;
@@ -32,11 +33,11 @@ public class ExercicioDTO implements Serializable {
 		this.id = id;
 	}
 	
-	public long getIdUsuario() {
+	public List<Long> getIdUsuario() {
 		return idUsuario;
 	}
 	
-	public void setIdUsuario(long idUsuario) {
+	public void setIdUsuario(List<Long> idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
